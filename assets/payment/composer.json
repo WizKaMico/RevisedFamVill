@@ -1,0 +1,7 @@
+{
+    "require": {
+        "guzzlehttp/guzzle": "^7.9",
+        "endroid/qr-code": "^6.0",
+        "php": ">=8.0.0"
+    }
+}
