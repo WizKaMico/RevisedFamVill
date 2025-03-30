@@ -14,6 +14,7 @@
                             <th>Status</th>
                             <th>Mode</th>
                             <th>Date Created</th>
+                            <th>Action</th>
                         </thead>
                         <tbody>
                             <?php
@@ -28,7 +29,13 @@
                                         <td>".$accounts['status']."</td>
                                         <td>".$accounts['mode']."</td>
                                         <td>".$accounts['date_created']."</td>
+                                        <td>
+                                           <a href='#editIntegration_".$accounts['pid']."' class='btn btn-success btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-pencil'></i></span> Edit</a>
+                                           <a href='#deactivateIntegration_".$accounts['pid']."' class='btn btn-warning btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-toggle-off'></i></span> Deactivate</a>
+                                            <a href='#deleteIntegration_".$accounts['pid']."' class='btn btn-danger btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-trash'></i></span> Delete</a>
+                                        </td>
                                     </tr>";
+                                    include('../../assets/modal/generic_update_modal.php');      
                                 }
                             }
                             ?>

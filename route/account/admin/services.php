@@ -11,6 +11,7 @@
                              <th>Service Id</th>
                              <th>Service Offer</th>
                              <th>Date Created</th>
+                             <th>Action</th>
                         </thead>
                         <tbody>
                             <?php
@@ -22,7 +23,12 @@
                                         <td>".$accounts['bsid']."</td>   
                                         <td>".$accounts['service']."</td>
                                         <td>".$accounts['date_created']."</td>
+                                        <td>
+                                           <a href='#editService_".$accounts['bsid']."' class='btn btn-success btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-pencil'></i></span> Edit</a>
+                                           <a href='#deleteService_".$accounts['bsid']."' class='btn btn-danger btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-trash'></i></span> Delete</a>
+                                        </td>
                                     </tr>";
+                                    include('../../assets/modal/generic_update_modal.php');   
                                 }
                             }
                             ?>

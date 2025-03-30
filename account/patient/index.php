@@ -3,6 +3,10 @@ include('../../connection/business_ownerPatientSession.php');
 include('../../controller/userController.php'); 
 $account = $portCont->myAccountPatient($client_id);
 $account_id = $account[0]['account_id'];
+$accountHeader = $portCont->checkTheme($account_id);
+$accountSidebar = $portCont->checkSideBarTheme($account_id);
+$notice = $portCont->myAccountAnnouncementDisplay($account_id);
+
 if(!empty($_GET['action']))
 {
   switch($_GET['action'])
@@ -101,6 +105,134 @@ if(!empty($_GET['action']))
             }
         }
         break;
+        // DASHBOARD PAGE 
+        case "UPDATEAPPOINTMENTSCHEDULE":
+            if(isset($_POST["submit"])) {
+                $account_id = $account[0]['account_id'];   
+                $aid = filter_input(INPUT_POST, "aid", FILTER_SANITIZE_STRING);
+                $schedule_date = filter_input(INPUT_POST, "schedule_date", FILTER_SANITIZE_STRING); 
+                if(!empty($account_id) && !empty($aid) && !empty($schedule_date))
+                {
+                    try
+                    {
+                        $portCont->updateMyPatientAppointment($account_id,$aid,$schedule_date);
+                        header('Location: ?view=HOME&message=success');
+                        exit;
+                        
+                    }
+                    catch(Exception $e)
+                    {
+                        header('Location: ?view=HOME&message=failed');
+                        exit;
+                    }
+                }
+                else
+                {
+                    header('Location: ?view=HOME&message=failed'.$account_id.''.$aid.''.$schedule_date);
+                    exit;
+                }
+            }
+        break;    
+        case "UPDATEAPPOINTMENTINFORMATION":
+            if(isset($_POST["submit"])) {
+                $account_id = $account[0]['account_id'];   
+                $aid = filter_input(INPUT_POST, "aid", FILTER_SANITIZE_STRING);
+                $fullname = filter_input(INPUT_POST, "fullname", FILTER_SANITIZE_STRING); 
+                $purpose = filter_input(INPUT_POST, "purpose", FILTER_SANITIZE_STRING); 
+                $purpose_description = filter_input(INPUT_POST, "purpose_description", FILTER_SANITIZE_STRING); 
+                $gender = filter_input(INPUT_POST, "gender", FILTER_SANITIZE_STRING); 
+                if(!empty($account_id) && !empty($aid) && !empty($fullname) && !empty($purpose) && !empty($purpose_description) && !empty($gender))
+                {
+                    try
+                    {
+                        $portCont->updateMyPatientInformation($account_id,$aid,$fullname,$purpose,$purpose_description,$gender);
+                        header('Location: ?view=HOME&message=success');
+                        exit;
+                        
+                    }
+                    catch(Exception $e)
+                    {
+                        header('Location: ?view=HOME&message=failed');
+                        exit;
+                    }
+                }
+            }
+        break;
+        case "DELETEAPPOINTMENTINFORMATION":
+            if(isset($_POST["submit"])) {
+                $account_id = $account[0]['account_id'];   
+                $aid = filter_input(INPUT_POST, "aid", FILTER_SANITIZE_STRING);
+                if(!empty($account_id) && !empty($aid))
+                {
+                    try
+                    {
+                        $portCont->deleteMyPatientInformationAppointment($account_id,$aid);
+                        header('Location: ?view=HOME&message=success');
+                        exit;
+                        
+                    }
+                    catch(Exception $e)
+                    {
+                        header('Location: ?view=HOME&message=failed');
+                        exit;
+                    }
+                }
+            }
+        break;
+        case "PAYAPPOINTMENT":
+            if(isset($_GET['action']))
+            {
+                $account_id = $account[0]['account_id']; 
+                $aid = $_GET['aid'];
+                $client_id = $account[0]['client_id'];
+                $method = $_GET['method'];
+                $trans_id = $_GET['trans_id'];
+                $url = $_GET['url'];
+                $code = $_GET['code'];
+                $email = $_GET['email'];
+                if(!empty($account_id) && !empty($aid) && !empty($client_id) && !empty($method) && !empty($trans_id) && !empty($url) && !empty($code) && !empty($email))
+                {
+                    try
+                    {
+                        $accountResult = $portCont->myAppointmentBookingPayment($account_id, $aid, $client_id, $method, $trans_id, $url, $code, $email);
+                        $portCont->updateBookingStatusAfterPayment($aid);
+                        Header('Location:'.$url);
+                        exit;
+                    }
+                    catch(Exception $e)
+                    {
+                        header('Location:?view=HOME&client_id=' . $client_id . '&message=failed');
+                        exit;
+                    }
+                }
+            }
+        break;
+
+        case "FEEDBACK":
+            if(isset($_POST['submit']))
+            {
+                $account_id = $account[0]['account_id']; 
+                $client_id = $account[0]['client_id'];
+                $pid = filter_input(INPUT_POST, "pid", FILTER_SANITIZE_STRING);
+                $rate = filter_input(INPUT_POST, "rate", FILTER_SANITIZE_STRING);
+                $feedback = filter_input(INPUT_POST, "feedback", FILTER_SANITIZE_STRING);
+                if(!empty($account_id) && !empty($pid) && !empty($rate) && !empty($feedback))
+                {
+                    try
+                    {
+                        $accountResult = $portCont->myAppointmentBookingFeedback($account_id, $client_id, $pid, $rate, $feedback);
+                        header('Location: ?view=HOME&message=success');
+                        exit;
+                    }
+                    catch(Exception $e)
+                    {
+                        header('Location: ?view=HOME&message=failed');
+                        exit;
+                    }
+                }
+            }
+        break;
+        // DASHBOARD PAGE
   }
 }
 ?>
@@ -141,7 +273,7 @@ if(!empty($_GET['action']))
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="../../assets/css/tab.css" rel="stylesheet">
-       
+        <?php include('../../assets/alert/patientSwal.php'); ?>
     </head>
 
     <body>
@@ -157,16 +289,34 @@ if(!empty($_GET['action']))
                             switch($view)
                             {
                                 case "HOME":
+                                    $account_activity = "Navigate to ".$view;
+                                    $portCont->account_activity_insertPatient($account_id, $client_id, $view, $account_activity);
                                     include('../../route/account/patient/dashboard.php');
                                     break;
                                 case "HISTORY":
+                                    $account_activity = "Navigate to ".$view;
+                                    $portCont->account_activity_insertPatient($account_id, $client_id, $view, $account_activity);
                                     include('../../route/account/patient/history.php');
                                     break;
                                 case "BOOK":
+                                    $account_activity = "Navigate to ".$view;
+                                    $portCont->account_activity_insertPatient($account_id, $client_id, $view, $account_activity);
                                     include('../../route/account/patient/book.php');
                                     break;
                                 case "PRODUCTS":
+                                    $account_activity = "Navigate to ".$view;
+                                    $portCont->account_activity_insertPatient($account_id, $client_id, $view, $account_activity);
                                     include('../../route/account/patient/product.php');
+                                    break;
+                                case "MYACCOUNT":
+                                    $account_activity = "Navigate to ".$view;
+                                    $portCont->account_activity_insertPatient($account_id, $client_id, $view, $account_activity);
+                                    include('../../route/account/patient/account.php');
+                                    break;
+                                case "SPECIFICACCOUNTBOOKVIEW":
+                                    $account_activity = "Navigate to ".$view;
+                                    $portCont->account_activity_insertPatient($account_id, $client_id, $view, $account_activity);
+                                    include('../../route/account/patient/specificaccountbookedview.php');
                                     break;
                                 default:
                                     include('../../route/account/patient/404.php');
@@ -222,6 +372,12 @@ if(!empty($_GET['action']))
                     loadScript('../../assets/js/dt.js');
                     break;
                 case 'HISTORY':
+                    loadScript('../../assets/js/dt.js');
+                    break;
+                case 'MYACCOUNT':
+                    loadScript('../../assets/js/dt.js');
+                    break;
+                case 'SPECIFICACCOUNTBOOKVIEW':
                     loadScript('../../assets/js/dt.js');
                     break;
             }

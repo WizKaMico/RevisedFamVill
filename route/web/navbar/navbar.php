@@ -15,7 +15,8 @@
                </nav>
 
                <a class="cta-btn" href="?view=LOGIN" style="border-radius:20px; margin-right:-20px;">Login</a>
-               <a class="cta-btn" href="?view=REGISTER" style="border-radius:20px;">Signup</a> 
+               <a class="cta-btn" href="?view=REGISTER" style="border-radius:20px; margin-right:-20px;">Signup</a> 
+               <a class="cta-btn" href="?view=ADMINLOGIN" style="border-radius:20px;">Admin</a> 
            </div>
 
        </div>

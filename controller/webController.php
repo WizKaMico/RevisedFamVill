@@ -245,6 +245,25 @@ class webController extends DBController
         return $accountLogin;
     }
 
+    function myBusinessAccountLoginAdmin($email,$password)
+    {
+        $query = "SELECT CA.* FROM clinic_admin CA WHERE CA.email = ? AND CA.password = ?";
+        
+        $params = array(
+            array(
+                "param_type" => "s",
+                "param_value" => $email
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $password
+            )
+        );
+
+        $accountLogin = $this->getDBResult($query, $params);
+        return $accountLogin;
+    }
+
 }
 
 $portCont = new webController();

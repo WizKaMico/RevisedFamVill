@@ -9,11 +9,16 @@
                         <thead>
                             <th>ID</th>
                             <th>PID</th>
-                            <th>PATIENT NAME</th>
-                            <th>PATIENT AGE</th>
+                            <th>PATIENT</th>
+                            <th>AGE</th>
+                            <th>GENDER</th>
                             <th>PURPOSE</th>
-                            <th>DATE OF APPOINTMENT</th>
-                            <th>STATUS</th>
+                            <th>DESCRIPTION</th>
+                            <th>DOCTOR</th>
+                            <th>FEE</th>
+                            <th>DIAGNOSIS</th>
+                            <th>APPOINTMENT</th>
+                            <th>ACTION</th>
                         </thead>
                         <tbody>
                             <?php
@@ -27,15 +32,25 @@
                                             <td>".$value['pid']."</td>
                                             <td>".$value['fullname']."</td>
                                             <td>".$value['age']."</td>
+                                            <td>".$value['gender']."</td>
                                             <td>".$value['service']."</td>
+                                            <td>".$value['purpose_description']."</td>
+
+                                            <td>".$value['doctor']."</td>
+                                            <td>₱ ".$value['paygrade']."</td>
+                                            <td>".$value['diagnosis']."</td>
+
                                             <td>".$value['schedule_date']."</td>
-                                             <td>".$value['status']."</td>
+                                            <td>
+                                              <a href='?view=SPECIFICACCOUNTBOOKVIEW&aid=".$value['aid']."&client_id=".$uid."' class='btn btn-success btn-sm'> <i class='fa fa-folder-open'></i></span></a>
+                                            </td>
                                         </tr>";
                                 }
                             }
                             ?>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>

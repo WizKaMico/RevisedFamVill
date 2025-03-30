@@ -1,4 +1,4 @@
-  <div class="app-header header-shadow">
+  <div class="app-header header-shadow <?php echo $accountHeader[0]['themeHeader']; ?>">
       <div class="app-header__logo">
           <h5><?php echo strtoupper($account[0]['business_name']); ?></h5>
           <div class="header__pane ml-auto">
@@ -45,7 +45,7 @@
                                   <div tabindex="-1" role="menu" aria-hidden="true"
                                       class="dropdown-menu dropdown-menu-right">
                                       <a href="?view=MYACCOUNT" tabindex="0" class="dropdown-item">Settings</a>
-                                      <a href="?view=LOGOUT" tabindex="0" class="dropdown-item">Logout</a>
+                                      <a href="../../CLINIC/?company=<?php echo $account[0]['business_name']; ?>" tabindex="0" class="dropdown-item">Logout</a>
                                   </div>
                               </div>
                           </div>
@@ -58,7 +58,7 @@
                               </div>
                           </div>
                           <div class="widget-content-right header-user-info ml-3">
-                              <a href="?view=LOGOUT" class="btn-shadow p-1 btn btn-danger btn-sm show-toastr-example">
+                              <a href="../../CLINIC/?company=<?php echo $account[0]['business_name']; ?>" class="btn-shadow p-1 btn btn-danger btn-sm show-toastr-example">
                                   <i class="fa fa-exclamation-circle"></i>
                               </a>
                           </div>

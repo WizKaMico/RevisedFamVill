@@ -1,4 +1,4 @@
-<div class="app-sidebar sidebar-shadow">
+<div class="app-sidebar sidebar-shadow <?php echo $accountSidebar[0]['theme']; ?>">
     <div class="app-header__logo">
         <img src="logo/main.png" class="logo-src" />
         <div class="header__pane ml-auto">
@@ -53,12 +53,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="?view=PRODUCT"  style="text-decoration:none;">
-                        <i class="fa fa-cubes"></i>
-                        Product Management
-                    </a>
-                </li>
-                <li>
                     <a href="?view=SERVICE"  style="text-decoration:none;">
                         <i class="fa fa-suitcase"></i>
                         Services
@@ -70,13 +64,25 @@
                         Reports
                     </a>
                 </li>
+                <li>
+                    <a href="?view=INQUIRY"  style="text-decoration:none;">
+                        <i class="fa fa-info-circle"></i>
+                        Inquiry
+                    </a>
+                </li>
+                <li>
+                    <a href="?view=ANNOUNCEMENT"  style="text-decoration:none;">
+                        <i class="fa fa-bullhorn"></i>
+                        Announcement
+                    </a>
+                </li>
             </ul>
             <ul class="vertical-nav-menu">
                 <li class="app-sidebar__heading">Configuration</li>
                 <li>
                     <a href="?view=ACCOUNTS" style="text-decoration:none;">
                         <i class="fa fa-group"></i>
-                        Accounts
+                        Staff
                     </a>
                 </li>
                 <li>
@@ -89,6 +95,15 @@
                     <a href="?view=INTEGRATION" style="text-decoration:none;">
                         <i class="fa fa-money"></i>
                         Payment Integration
+                    </a>
+                </li>
+            </ul>
+            <ul class="vertical-nav-menu">
+                <li class="app-sidebar__heading">Support</li>
+                <li>
+                    <a href="?view=SUPPORT" style="text-decoration:none;">
+                        <i class="fa fa-commenting"></i>
+                        Ticket
                     </a>
                 </li>
             </ul>

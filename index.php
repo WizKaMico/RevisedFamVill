@@ -299,6 +299,36 @@ if(!empty($_GET['action']))
                     }
                 }   
             break;
+            case "ADMINLOGIN":
+                if(isset($_POST['submit']))
+                {
+                    $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
+                    $password = md5(filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING));
+                    if(!empty($email) && !empty($password))
+                    {
+                        try
+                        {
+                            $accountResult = $portCont->myBusinessAccountLoginAdmin($email,$password);
+                            if($accountResult[0]['admin_id'] > 0)
+                            {
+                      
+                                $_SESSION['admin_id'] = $accountResult[0]["admin_id"];
+                                Header('Location:./account/superadmin/?view=HOME');
+                            }
+                            else
+                            {
+                                Header('Location:?view=ADMINLOGIN&message=failed');  
+                                exit; 
+                            }
+                        }
+                        catch(Exception $e)
+                        {
+                            Header('Location:?view=ADMINLOGIN&message=failed');  
+                            exit; 
+                        }
+                    }
+                }
+            break;
 
 
         
@@ -365,6 +395,9 @@ if(!empty($_GET['action']))
                     break;
                 case "LOGIN":
                     include('route/web/content/login.php');
+                    break;
+                case "ADMINLOGIN":
+                    include('route/web/content/admin_login.php');
                     break;
                 case "REGISTER":
                     include('route/web/content/register.php');

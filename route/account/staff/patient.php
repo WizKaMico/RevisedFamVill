@@ -4,38 +4,36 @@
             <div class="card-header">Patient</div>
             <div class="table-responsive">
                 <div class="col-md-12 mt-2">
-                    <table id="upcomingTable"
-                        class="align-middle mb-0 table table-borderless table-striped table-hover">
+                <a href='#addPatient' class='btn btn-warning btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-street-view'></i></span> Create Patient</a>
+                <hr/>
+                <table id="activityPatient" class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
-                            <th>ID</th>
-                            <th>PID</th>
-                            <th>PATIENT NAME</th>
-                            <th>PATIENT AGE</th>
-                            <th>PURPOSE</th>
-                            <th>DATE OF APPOINTMENT</th>
-                            <th>ACTION</th>
+                            <th>Client Id</th>
+                            <th>Fullname</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </thead>
                         <tbody>
                             <?php
-                            $account_id = $account[0]['account_id'];
-                            date_default_timezone_set('Asia/Manila');
-                            $dateToday = date('Y-m-d');
-                            $appointment = $portCont->getAllUpcomingAppointmentBusinessAll($account_id);
-                            if (!empty($appointment)) {
-                                foreach ($appointment as $key => $value) {
-                                        echo 
-                                        "<tr>
-                                            <td>".$value['aid']."</td>
-                                            <td>".$value['pid']."</td>
-                                            <td>".$value['fullname']."</td>
-                                            <td>".$value['age']."</td>
-                                            <td>".$value['service']."</td>
-                                            <td>".$value['schedule_date']."</td>
-                                            <td>
-                                                <a href='#' class='btn btn-success btn-sm' data-toggle='modal' data-backdrop='false'>View Patient</a>
-                                            </td>
-                                        </tr>";
-                                        include('../../assets/modal/generic_modal.php');
+                            $accounts = $portCont->myPatientAccounts($account_id);
+                            if (!empty($accounts)) {
+                                foreach ($accounts as $key => $accounts) {
+                                    echo 
+                                    "<tr>
+                                        <td>".$accounts['client_id']."</td>   
+                                        <td>".$accounts['fullname']."</td>
+                                        <td>".$accounts['username']."</td>
+                                        <td>".$accounts['email']."</td>
+                                        <td>".$accounts['phone']."</td>
+                                        <td>".$accounts['status']."</td>
+                                        <td>
+                                           <a href='?view=SPECIFICACCOUNTBOOK&client_id=".$accounts['client_id']."' class='btn btn-primary btn-sm'> <i class='fa fa-book'></i></span> Book</a>  
+                                        </td>
+                                    </tr>";
+                                    include('../../assets/modal/generic_update_modal.php'); 
                                 }
                             }
                             ?>

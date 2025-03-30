@@ -1,4 +1,4 @@
-<div class="app-sidebar sidebar-shadow">
+<div class="app-sidebar sidebar-shadow <?php echo $accountSidebar[0]['theme']; ?>">
     <div class="app-header__logo">
         <img src="logo/main.png" class="logo-src" />
         <div class="header__pane ml-auto">
@@ -38,12 +38,6 @@
                     <a href="?view=HOME" class="mm-active"  style="text-decoration:none;">
                         <i class="fa fa-user-md"></i>
                         Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="?view=PRODUCTS"  style="text-decoration:none;">
-                        <i class="fa fa-child"></i>
-                        Buy Medicine
                     </a>
                 </li>
                 <li>

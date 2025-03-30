@@ -1,4 +1,4 @@
-<div class="app-sidebar sidebar-shadow">
+<div class="app-sidebar sidebar-shadow <?php echo $accountSidebar[0]['theme']; ?>">
     <div class="app-header__logo">
         <img src="logo/main.png" class="logo-src" />
         <div class="header__pane ml-auto">
@@ -44,18 +44,6 @@
                     <a href="?view=PATIENT"  style="text-decoration:none;">
                        <i class="fa fa-child"></i>
                         Patient Management
-                    </a>
-                </li>
-                <li>
-                    <a href="?view=SCHEDULING"  style="text-decoration:none;">
-                        <i class="fa fa-calendar"></i>
-                        Appointment Scheduling
-                    </a>
-                </li>
-                <li>
-                    <a href="?view=REPORTS"  style="text-decoration:none;">
-                        <i class="fa fa-calendar"></i>
-                        Reports
                     </a>
                 </li>
             </ul>

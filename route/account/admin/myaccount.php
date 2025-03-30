@@ -1,15 +1,36 @@
 <div class="row">
-     <div class="col-md-8">
+     <div class="col-md-4">
          <div class="main-card mb-3 card">
              <div class="card-header">Account Activity</div>
              <div class="table-responsive">
-                 <div class="col-md-12 mt-2">
-                   
-                 </div>
-             </div>
+                <div class="col-md-12 mt-2">
+                   <table id="accountBilling" class="align-middle mb-0 table table-borderless table-striped table-hover">
+                        <thead>
+                            <th>Activity</th>
+                            <th>Page</th>
+                            <th>Date</th>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $accounts = $portCont->myAccountOwnerActivity($account_id);
+                            if (!empty($accounts)) {
+                                foreach ($accounts as $key => $accounts) {
+                                    echo 
+                                    "<tr>
+                                        <td>".$accounts['account_activity']."</td>   
+                                        <td>".$accounts['page']."</td>
+                                        <td>".$accounts['date_created']."</td>
+                                    </tr>";
+                                }
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
          </div>
      </div>
-     <div class="col-md-4">
+     <div class="col-md-8">
          <div class="main-card mb-3 card">
              <div class="card-header">Account Information</div>
              <div class="table-responsive">
@@ -22,7 +43,9 @@
                      </div>
 
                      <div id="Information" class="tabcontent mb-5" style="display: block;">
-                         <h5><span class="fa fa-folder-open-o"></span> Owner Information</h5>
+                        <center>
+                         <h5><span class="fa fa-folder-open-o mt-2"></span> Owner Information</h5>
+                        </center>
                          <hr />
                          <form action="#" method="POST">
                              <div class="mb-3 mt-3">
@@ -57,7 +80,9 @@
                      </div>
 
                      <div id="Clinic" class="tabcontent mb-5" style="display: none;">
-                         <h5><span class="fa fa-info-circle"></span> Clinic Information</h5>
+                       <center>
+                         <h5><span class="fa fa-info-circle mt-2"></span> Clinic Information</h5>
+                       </center>
                          <hr />
                          <form action="#" method="POST">
                              <div class="mb-3 mt-3">
@@ -76,7 +101,9 @@
                      </div>
 
                      <div id="Web" class="tabcontent mb-5" style="display: none;">
-                         <h5><span class="fa fa-globe"></span> Site</h5>
+                        <center>
+                         <h5><span class="fa fa-globe mt-2"></span> Site</h5>
+                        </center>
                          <hr />
                          <div class="mb-3 mt-3">
                            <a href="http://localhost/CLINIC_APP/CLINIC/?company=<?php echo $account[0]['business_name']; ?>" id="copyLink">http://localhost/CLINIC_APP/CLINIC/?company=<?php echo $account[0]['business_name']; ?></a>   
