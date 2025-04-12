@@ -134,7 +134,8 @@ if(!empty($_GET['action']))
                 $fullname = filter_input(INPUT_POST, "fullname", FILTER_SANITIZE_STRING);
                 $contact = filter_input(INPUT_POST, "contact", FILTER_SANITIZE_STRING);
                 $dob = filter_input(INPUT_POST, "dob", FILTER_SANITIZE_STRING);
-                $doa = filter_input(INPUT_POST, "doa", FILTER_SANITIZE_STRING);
+                $date_option = filter_input(INPUT_POST, "date_option", FILTER_SANITIZE_STRING);
+                $doa = ($date_option == "today") ? filter_input(INPUT_POST, "doa1", FILTER_SANITIZE_STRING) : filter_input(INPUT_POST, "doa2", FILTER_SANITIZE_STRING);
                 $gender = filter_input(INPUT_POST, "gender", FILTER_SANITIZE_STRING);
                 $purpose = filter_input(INPUT_POST, "purpose", FILTER_SANITIZE_STRING);
                 $purpose_description = filter_input(INPUT_POST, "purpose_description", FILTER_SANITIZE_STRING);
@@ -149,12 +150,21 @@ if(!empty($_GET['action']))
     
                 $age = calculateAge($dob);
     
-                if(!empty($account_id) && !empty($client_id) && !empty($pid) && !empty($fullname) && !empty($contact) && !empty($dob) && !empty($doa) && !empty($gender) && !empty($purpose) && !empty($purpose_description) && !empty($fromIns) && !empty($age))
+                $user_id = filter_input(INPUT_POST, "user_id", FILTER_SANITIZE_STRING);
+    
+                if(!empty($account_id) && !empty($client_id) && !empty($pid) && !empty($fullname) && !empty($contact) && !empty($dob) && !empty($doa) && !empty($gender) && !empty($purpose) && !empty($purpose_description) && !empty($fromIns))
                 {
                     try
                     {
                         $activity = 'ADD BOOKING '.$pid;
-                        $result = $portCont->acceptBooking($account_id, $pid, $client_id, $dob, $age, $fullname, $purpose, $purpose_description, $gender, $doa, $fromIns);
+                        if($date_option == "today")
+                        {
+                            $result = $portCont->acceptBookingAdmin($account_id, $pid, $client_id, $dob, $age, $fullname, $purpose, $purpose_description, $gender, $doa, $fromIns, $user_id);
+                        }
+                        else
+                        {
+                            $result = $portCont->acceptBooking($account_id, $pid, $client_id, $dob, $age, $fullname, $purpose, $purpose_description, $gender, $doa, $fromIns);
+                        }
                         $appointmentPatient = strtoupper($result[0]["fullname"]);
                         $appointmentSchedule = $result[0]["schedule_date"];
                         $appointmentStatus = $result[0]["status"];
@@ -168,9 +178,13 @@ if(!empty($_GET['action']))
                     }
                     catch(Exception $e)
                     {
-                        header('Location: ?view=SPECIFICACCOUNTBOOK&client_id='.$client_id.'&message=success');
+                        header('Location: ?view=SPECIFICACCOUNTBOOK&client_id='.$client_id.'&message=failed&1');
                     }
-                }   
+                }
+                else
+                {
+                    header('Location: ?view=SPECIFICACCOUNTBOOK&client_id='.$client_id.'&message=failed&2');
+                }
     
             }
         break;

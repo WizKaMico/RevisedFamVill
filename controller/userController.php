@@ -656,17 +656,46 @@ class userController extends DBController
 
      function myClinicSchedules($account_id)
      {
-        $query = "SELECT CBAP.purpose_description AS purpose_description,
-        CBAP.aid as aid, CBAP.fullname as patient, CBAP.date_birth as dob, CBAP.age as age, CBAP.gender as gender, CBAP.schedule_date as schedule_date, CBAP.status as status,cbs.service as purpose,CBA.fullname as guardian,CBA.email as email,
-        CBADA.diagnosis as diagnosis, CBAU.fullname as doctor, CBAUP.paygrade as amount
-        FROM clinic_business_account_patient CBA 
-        LEFT JOIN clinic_business_account_appointment CBAP ON CBAP.uid = CBA.client_id 
-        LEFT JOIN clinic_business_assigned_doctor_appointment CBADA ON CBADA.aid = CBAP.aid
-        LEFT JOIN clinic_bussiness_account_users CBAU ON CBADA.user_id = CBAU.user_id
-        LEFT JOIN clinic_bussiness_account_users_paygrade CBAUP ON CBAUP.user_id = CBAU.user_id
-        LEFT JOIN clinic_business_service CBS ON CBS.bsid = CBAP.purpose
-        WHERE CBA.account_id = ?
-        ";
+        $query = "SELECT 
+					DISTINCT
+                    CBAP.purpose_description AS purpose_description,
+                    CBAP.aid AS aid, 
+                    CBAP.fullname AS patient, 
+                    CBAP.date_birth AS dob, 
+                    CBAP.age AS age, 
+                    CBAP.gender AS gender, 
+                    CBAP.schedule_date AS schedule_date, 
+                    CBAP.status AS status,
+                    CBS.service AS purpose,
+                    CBA.fullname AS guardian,
+                    CBA.email AS email,
+                    CBADA.diagnosis AS diagnosis, 
+                    CBAU.fullname AS doctor, 
+                    CBAUP.paygrade AS amount,
+                    CBMAP.method AS payment_method,
+                    CBMAP.date_created AS payment_date
+                FROM clinic_business_account_patient CBA 
+                LEFT JOIN clinic_business_account_appointment CBAP 
+                    ON CBAP.uid = CBA.client_id 
+                LEFT JOIN clinic_business_assigned_doctor_appointment CBADA 
+                    ON CBADA.aid = CBAP.aid
+                LEFT JOIN clinic_bussiness_account_users CBAU 
+                    ON CBADA.user_id = CBAU.user_id
+                LEFT JOIN clinic_bussiness_account_users_paygrade CBAUP 
+                    ON CBAUP.user_id = CBAU.user_id
+                LEFT JOIN clinic_business_service CBS 
+                    ON CBS.bsid = CBAP.purpose
+                LEFT JOIN (
+                    SELECT *
+                    FROM clinic_business_my_appointment_payment cb1
+                    WHERE cb1.aid = (
+                        SELECT MAX(cb2.aid)
+                        FROM clinic_business_my_appointment_payment cb2
+                        WHERE cb2.aid = cb1.aid
+                    )
+                ) CBMAP 
+                    ON CBMAP.aid = CBAP.aid
+                WHERE CBA.account_id = ?";
          
         $params = array(
             array(
@@ -1302,6 +1331,20 @@ class userController extends DBController
          $this->updateDB($query, $params);
      }
 
+     function updateBookingStatusAfterPaymentCash($aid)
+     {
+        $query = "UPDATE clinic_business_account_appointment SET status = 'PAYED CONFIRM' WHERE aid = ?";
+         
+         $params = array(
+             array(
+                 "param_type" => "i",
+                 "param_value" => $aid
+             )
+         );
+ 
+         $this->updateDB($query, $params);
+     }
+
      function myAppointmentBookingStatusUpdate($account_id, $client_id, $aid, $status)
      {
         $query = "UPDATE clinic_business_account_appointment SET status = ? WHERE aid = ? AND account_id = ?";
@@ -1532,9 +1575,68 @@ class userController extends DBController
         return $account;
      }
 
+     function acceptBookingAdmin($account_id, $pid, $client_id, $dob, $age, $fullname, $purpose, $purpose_description, $gender, $doa, $fromIns, $user_id)
+     {
+        $query = "CALL clinic_businessPatientBookingCreation(?,?,?,?,?,?,?,?,?,?,?,?)";
+         
+        $params = array(
+            array(
+                "param_type" => "i",
+                "param_value" => $account_id
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $pid
+            ),
+            array(
+                "param_type" => "i",
+                "param_value" => $client_id
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $dob
+            ),
+            array(
+                "param_type" => "i",
+                "param_value" => $age
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $fullname
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $purpose
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $purpose_description
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $gender
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $doa
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $fromIns
+            ),
+            array(
+                "param_type" => "i",
+                "param_value" => $user_id
+            )
+        );
+        
+        $account = $this->getDBResult($query, $params);
+        return $account;
+     }
+
      function acceptBooking($account_id, $pid, $client_id, $dob, $age, $fullname, $purpose, $purpose_description, $gender, $doa, $fromIns)
      {
-        $query = "CALL clinic_businessPatientBookingCreation(?,?,?,?,?,?,?,?,?,?,?)";
+        $query = "CALL clinic_businessPatientBookingCreationNormal(?,?,?,?,?,?,?,?,?,?,?)";
          
         $params = array(
             array(

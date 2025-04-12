@@ -27,11 +27,13 @@
                             <th>Birthdate</th>
                             <th>Age</th>
                             <th>Gender</th>
-                            <th>Appointment Schedule</th>
+                            <th>Appointment</th>
                             <th>Status</th>
                             <th>Purpose</th>
                             <th>Guardian</th>
+                            <?php if($account[0]['sid'] == NULL) { ?>
                             <th>Action</th>
+                            <?php } ?>
                         </thead>
                         <tbody>
                             <?php
@@ -47,11 +49,14 @@
                                         <td>".$accounts['schedule_date']."</td>
                                         <td>".$accounts['status']."</td>
                                         <td>".$accounts['purpose']."</td>
-                                        <td>".$accounts['guardian']."</td>
-                                        <td>
+                                        <td>".$accounts['guardian']."</td>";
+
+                                        if($account[0]['sid'] == NULL) {
+                                       echo "<td>
                                            <a href='#editAppointment_".$accounts['aid']."' class='btn btn-success btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-calendar'></i></span></a>
-                                        </td>
-                                    </tr>";
+                                        </td>";
+                                        }
+                                    echo "</tr>";
                                     include('../../assets/modal/generic_update_modal.php');
                                 }
                             }

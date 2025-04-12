@@ -8,7 +8,14 @@ class chartsApiController extends DBController
     function profitChartToday($account_id)
     {
         date_default_timezone_set('Asia/Manila');
-        $query = "SELECT method, count(*) as count FROM clinic_business_my_appointment_payment WHERE date_created = ? AND account_id = ? GROUP BY method";
+       
+        $query = " SELECT method, COUNT(*) AS count
+                FROM (
+                    SELECT DISTINCT aid, method
+                    FROM clinic_business_my_appointment_payment
+                    WHERE date_created = ? AND account_id = ?
+                ) AS unique_aid
+                GROUP BY method;";
         $params = array(
             array(
                 "param_type" => "s",
@@ -147,7 +154,13 @@ class chartsApiController extends DBController
     function profitChartOverall($account_id)
     {
         date_default_timezone_set('Asia/Manila');
-        $query = "SELECT method, count(*) as count FROM clinic_business_my_appointment_payment WHERE account_id = ? GROUP BY method";
+        $query = " SELECT method, COUNT(*) AS count
+        FROM (
+            SELECT DISTINCT aid, method
+            FROM clinic_business_my_appointment_payment
+            WHERE account_id = ?
+        ) AS unique_aid
+        GROUP BY method;";
         $params = array(
             array(
                 "param_type" => "i",

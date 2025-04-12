@@ -551,11 +551,9 @@
                             </div>
                             <div class="col-sm-12">
                                 <select class="form-control" name="level" required="">
-                                    <option value="1">Priority 1</option>  
-                                    <option value="2">Priority 2</option>    
-                                    <option value="3">Priority 3</option>
-                                    <option value="4">Priority 4</option>
-                                    <option value="5">Priority 5</option>    
+                                    <option value="1">High</option>  
+                                    <option value="2">Medium</option>    
+                                    <option value="3">Low</option>    
                                 </select>
                             </div>
                         </div>

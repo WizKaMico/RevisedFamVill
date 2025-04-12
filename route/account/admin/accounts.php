@@ -15,7 +15,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Role</th>
-                            <th>Paygrade</th>
+                            <th>Rate</th>
                             <th>Status</th>
                             <th>Action</th>
                         </thead>
@@ -31,12 +31,12 @@
                                         <td>".$accounts['email']."</td>
                                         <td>".$accounts['phone']."</td>
                                         <td>".$accounts['role_name']."</td>
-                                        <td>".$accounts['paygrade']."</td>
+                                        <td>₱ ".$accounts['paygrade']."</td>
                                         <td>".$accounts['status']."</td>
                                         <td>
                                            <a href='#editAccounts_".$accounts['user_id']."' class='btn btn-success btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-pencil'></i></span> Edit</a>
                                            <a href='#deactivateAccounts_".$accounts['user_id']."' class='btn btn-warning btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-toggle-off'></i></span> Deactivate</a>
-                                           <a href='#paygradeAccounts_".$accounts['user_id']."' class='btn btn-primary btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-money'></i></span> Paygrade</a>
+                                           <a href='#paygradeAccounts_".$accounts['user_id']."' class='btn btn-primary btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-money'></i></span> Rate</a>
                                            <a href='#deleteAccounts_".$accounts['user_id']."' class='btn btn-danger btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-trash'></i></span> Delete</a>
                                           <a href='?view=STAFFLOGS&user_id=".$accounts['user_id']."' class='btn btn-success btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-pencil'></i></span> Logs</a>  
                                        </td>

@@ -42,10 +42,11 @@
                             <th>Birthdate</th>
                             <th>Age</th>
                             <th>Gender</th>
-                            <th>Appointment Schedule</th>
+                            <th>Schedule</th>
                             <th>Status</th>
                             <th>Purpose</th>
                             <th>Guardian</th>
+                            <th>Method</th>
                         </thead>
                         <tbody>
                             <?php
@@ -62,6 +63,7 @@
                                         <td>".$accounts['status']."</td>
                                         <td>".$accounts['purpose']."</td>
                                         <td>".$accounts['guardian']."</td>
+                                        <td>".$accounts['payment_method']."</td>
                                     </tr>";
                                 }
                             }

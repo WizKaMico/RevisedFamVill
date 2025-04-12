@@ -35,7 +35,7 @@ if(!empty($_GET['action']))
 
             $age = calculateAge($dob);
 
-            if(!empty($account_id) && !empty($client_id) && !empty($pid) && !empty($fullname) && !empty($contact) && !empty($dob) && !empty($doa) && !empty($gender) && !empty($purpose) && !empty($purpose_description) && !empty($fromIns) && !empty($age))
+            if(!empty($account_id) && !empty($client_id) && !empty($pid) && !empty($fullname) && !empty($contact) && !empty($dob) && !empty($doa) && !empty($gender) && !empty($purpose) && !empty($purpose_description) && !empty($fromIns))
             {
                 try
                 {
@@ -56,7 +56,11 @@ if(!empty($_GET['action']))
                 {
                     header('Location: ?view='.$view.'&message=failed');
                 }
-            }   
+            }
+            else
+            {
+                header('Location:?view=BOOK&message=failed');
+            }  
 
         }
     break;
@@ -211,6 +215,7 @@ if(!empty($_GET['action']))
         case "FEEDBACK":
             if(isset($_POST['submit']))
             {
+                $view = $_GET['view'];
                 $account_id = $account[0]['account_id']; 
                 $client_id = $account[0]['client_id'];
                 $pid = filter_input(INPUT_POST, "pid", FILTER_SANITIZE_STRING);
@@ -221,12 +226,12 @@ if(!empty($_GET['action']))
                     try
                     {
                         $accountResult = $portCont->myAppointmentBookingFeedback($account_id, $client_id, $pid, $rate, $feedback);
-                        header('Location: ?view=HOME&message=success');
+                        header('Location: ?view='.$view.'&message=success');
                         exit;
                     }
                     catch(Exception $e)
                     {
-                        header('Location: ?view=HOME&message=failed');
+                        header('Location: ?view='.$view.'&message=failed');
                         exit;
                     }
                 }

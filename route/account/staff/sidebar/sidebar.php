@@ -32,21 +32,22 @@
     </div>
     <div class="scrollbar-sidebar">
         <div class="app-sidebar__inner">
-            <ul class="vertical-nav-menu">
-                <li class="app-sidebar__heading">Main</li>
-                <li>
-                    <a href="?view=HOME" class="mm-active"  style="text-decoration:none;">
-                        <i class="fa fa-tachometer"></i>
-                        Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="?view=PATIENT"  style="text-decoration:none;">
-                       <i class="fa fa-child"></i>
-                        Patient Management
-                    </a>
-                </li>
-            </ul>
+        <?php $current_view = isset($_GET['view']) ? $_GET['view'] : 'HOME'; ?>
+        <ul class="vertical-nav-menu">
+            <li class="app-sidebar__heading">Main</li>
+            <li>
+                <a href="?view=HOME" class="<?= $current_view == 'HOME' ? 'mm-active' : '' ?>" style="text-decoration:none;">
+                    <i class="fa fa-tachometer"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="?view=PATIENT" class="<?= $current_view == 'PATIENT' ? 'mm-active' : '' ?>" style="text-decoration:none;">
+                    <i class="fa fa-child"></i>
+                    Patient Management
+                </a>
+            </li>
+        </ul>
         </div>
     </div>
 </div>

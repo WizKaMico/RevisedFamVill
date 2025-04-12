@@ -319,7 +319,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5>Account Paygrade</h5>
+                <h5>Account Rate</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
@@ -327,7 +327,7 @@
                     <form method="POST" action="?view=ACCOUNTS&action=ACCOUNTPAYGRADE">
                     <div class="row form-group">
                             <div class="col-sm-12">
-                                <label class="control-label modal-label">Paygrade:</label>
+                                <label class="control-label modal-label">Rate ₱:</label>
                             </div>
                             <div class="col-sm-12">
                                 <input type="hidden" name="user_id" value="<?php echo $accounts['user_id']; ?>" class="form-control" required="">
@@ -646,6 +646,17 @@
                             justify-content: center;"></a>
                             <hr />
                 <a href="?view=SPECIFICACCOUNTBOOK&action=PAYNOWAPPOINTMENTBILL&method=gcash&url=<?php echo urlencode($checkoutUrlGrabPay); ?>&trans_id=<?php echo $sourceId; ?>&code=<?php echo $code; ?>&email=<?php echo $accounts['email']; ?>&aid=<?php echo $accounts['aid']; ?>&client_id=<?php echo $_GET['client_id']; ?>" class="btn btn-primary w-100" style="background-image:url('../../assets/payment/logo/gpay.png'); background-size: contain; 
+                            background-position: center; 
+                            background-repeat: no-repeat; 
+                            color: white; 
+                            background-color:white;
+                            border: 2px solid #012cb4;
+                            padding: 15px; 
+                            display: flex; 
+                            align-items: center; 
+                            justify-content: center;"></a>
+                            <hr />
+                    <a href="?view=SPECIFICACCOUNTBOOK&action=PAYNOWAPPOINTMENTBILL&method=cash_payment&code=<?php echo $code; ?>&email=<?php echo $accounts['email']; ?>&aid=<?php echo $accounts['aid']; ?>&client_id=<?php echo $_GET['client_id']; ?>" class="btn btn-primary w-100" style="background-image:url('../../assets/payment/logo/cashlogo.png'); background-size: contain; 
                             background-position: center; 
                             background-repeat: no-repeat; 
                             color: white; 
@@ -1188,11 +1199,9 @@
                             <div class="col-sm-12">
                                 <select class="form-control" name="level" required="">
                                     <option value="<?php echo $accounts['level']; ?>">Priority <?php echo $accounts['level']; ?> (CURRENT)</option>
-                                    <option value="1">Priority 1</option>  
-                                    <option value="2">Priority 2</option>    
-                                    <option value="3">Priority 3</option>
-                                    <option value="4">Priority 4</option>
-                                    <option value="5">Priority 5</option>    
+                                    <option value="1">High</option>  
+                                    <option value="2">Medium</option>    
+                                    <option value="3">Low</option>       
                                 </select>
                             </div>
                         </div>
@@ -1361,3 +1370,52 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade mt-5" id="addUpdateComment_<?php echo $value['aid']; ?>" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Add Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                <form action="?view=HISTORY&action=FEEDBACK" method="POST">
+                         <div class="mb-3">
+                             <label for="purpose" class="form-label">Appointment Code:</label>
+                             <input type="text" name="pid" class="form-control" value="<?php echo $value['pid']; ?>" required="" readonly="">
+                         </div>
+                         <div class="mb-3">
+                             <label for="gender" class="form-label">Rate:</label>
+                             <select name="rate" class="form-control" required="">
+                                 <option value="">CHOOSE RATE</option>
+                                 <option value="1">🌟</option>
+                                 <option value="2">🌟🌟</option>
+                                 <option value="3">🌟🌟🌟</option>
+                                 <option value="4">🌟🌟🌟🌟</option>
+                                 <option value="5">🌟🌟🌟🌟🌟</option>
+                             </select>
+                         </div>
+                         <div class="mb-3">
+                             <label for="description" class="form-label">Feedback:</label>
+                             <textarea cols="5" rows="10" class="form-control" name="feedback"></textarea>
+                         </div>
+                         <div class="mb-3">
+                             <button type="submit" name="submit" class="btn btn-primary w-100">Submit</button>
+                         </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span
+                        class="glyphicon glyphicon-remove"></span> Cancel</button>
+                <button type="submit" name="submit" class="btn btn-success"><span
+                        class="glyphicon glyphicon-check"></span> Confirm</a>
+                    </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+

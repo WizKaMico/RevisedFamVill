@@ -28,9 +28,26 @@ $specificAccount = $portCont->myClinicSpecificAccountInfo($account_id,$client_id
                                     $code = rand(6666, 9999);
                                     echo 
                                     "<tr>
-                                        <td>".$accounts['patient']."</td>   
-                                        <td>".$accounts['age']."</td>
-                                        <td>".$accounts['gender']."</td>
+                                        <td>".$accounts['patient']."</td>";
+
+                                        if ($accounts['age'] > 0) {
+                                            echo "<td>" . $accounts['age'] . " y/o</td>";
+                                        } else {
+                                            $dob = new DateTime($accounts['dob']);
+                                            $today = new DateTime();
+                                            $interval = $dob->diff($today);
+                                        
+                                            if ($interval->m == 0 && $interval->y == 0) {
+                                                echo "<td>" . $interval->d . " day(s) old</td>";
+                                            } elseif ($interval->y == 0) {
+                                                echo "<td>" . $interval->m . " month(s) old</td>";
+                                            } else {
+                                                echo "<td>0</td>"; // fallback
+                                            }
+                                        }
+                                        
+                                    echo 
+                                       "<td>".$accounts['gender']."</td>
                                         <td>".$accounts['doctor']."</td>
                                         <td>₱ ".$accounts['amount']."</td>
                                         <td>".$accounts['schedule_date']."</td>
@@ -92,7 +109,7 @@ $specificAccount = $portCont->myClinicSpecificAccountInfo($account_id,$client_id
                              <input type="text" class="form-control" id="fullname" placeholder="Enter Patient Name"
                                  name="fullname">
                                  <input type="hidden" class="form-control" id="contact"
-                                 value="<?php echo $specificAccount[0]['client_id']; ?>" name="client_id" readonly="">
+                                 value="<?php echo $_GET['client_id']; ?>" name="client_id" readonly="">
                          </div>
                          <div class="mb-3 mt-3">
                              <label for="fullname" class="form-label">Contact:</label>
@@ -130,11 +147,39 @@ $specificAccount = $portCont->myClinicSpecificAccountInfo($account_id,$client_id
                              <textarea cols="5" rows="10" class="form-control" name="purpose_description"></textarea>
                          </div>
                          <div class="mb-3">
-                             <label for="doa" class="form-label">Date of Appointment:</label>
-                             <input type="text" name="doa" class="form-control" id="doa" readonly
-                                 placeholder="Enter Date of Appointment">
-                             <input type="hidden" name="fromIns" class="form-control" id="fromIns" value="WEB">
-                         </div>
+                            <label for="optionSelect" class="form-label">Choose Date Option:</label>
+                            <select id="optionSelect" name="date_option" class="form-select">
+                                <option value="today">Today</option>
+                                <option value="other">Other Day</option>
+                            </select>
+                        </div>
+
+                        <div id="dateToday" class="mb-3">
+                            <label for="doaToday" class="form-label">Date of Appointment:</label>
+                            <input type="date" name="doa1" class="form-control" id="doaToday" 
+                                value="<?php echo date('Y-m-d'); ?>" readonly>
+
+                            <hr />
+                            <label for="user_id" class="form-label">Assign Doctor:</label>                    
+                            <select class="form-control" name="user_id" required="">
+                                    <?php 
+                                        $staff = $portCont->clinic_business_account_service_employee($account[0]['account_id']);
+                                        if (!empty($staff)) {
+                                            foreach ($staff as $key => $staff) {
+                                    ?>
+                                    <option value="<?php echo $staff['user_id']; ?> "><?php echo $staff['fullname']; ?></option>
+                                    <?php } } ?>
+                            </select>
+                        </div>
+
+                        <div id="dateOther" class="mb-3" style="display: none;">
+                            <label for="doaOther" class="form-label">Date of Appointment:</label>
+                            <input type="text" name="doa2" class="form-control" id="doa" readonly
+                            placeholder="Enter Date of Appointment">
+                        </div>
+
+
+                         <input type="hidden" name="fromIns" class="form-control" id="fromIns" value="WEB">
                          <div class="mb-3">
                              <button type="submit" name="submit" class="btn btn-primary w-100">Submit</button>
                          </div>
@@ -144,3 +189,20 @@ $specificAccount = $portCont->myClinicSpecificAccountInfo($account_id,$client_id
         </div>
     </div>
 </div>
+
+
+<script>
+    const optionSelect = document.getElementById('optionSelect');
+    const dateToday = document.getElementById('dateToday');
+    const dateOther = document.getElementById('dateOther');
+
+    optionSelect.addEventListener('change', function () {
+        if (this.value === 'today') {
+            dateToday.style.display = 'block';
+            dateOther.style.display = 'none';
+        } else {
+            dateToday.style.display = 'none';
+            dateOther.style.display = 'block';
+        }
+    });
+</script>

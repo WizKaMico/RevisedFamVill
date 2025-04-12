@@ -32,22 +32,23 @@
     </div>
     <div class="scrollbar-sidebar">
         <div class="app-sidebar__inner">
-            <ul class="vertical-nav-menu">
+        <?php $current_view = isset($_GET['view']) ? $_GET['view'] : 'HOME'; ?>
+        <ul class="vertical-nav-menu">
                 <li class="app-sidebar__heading">Main</li>
                 <li>
-                    <a href="?view=HOME" class="mm-active"  style="text-decoration:none;">
+                    <a href="?view=HOME" class="<?= $current_view == 'HOME' ? 'mm-active' : '' ?>" style="text-decoration:none;">
                         <i class="fa fa-user-md"></i>
                         Dashboard
                     </a>
                 </li>
                 <li>
-                    <a href="?view=HISTORY"  style="text-decoration:none;">
+                    <a href="?view=HISTORY" class="<?= $current_view == 'HISTORY' ? 'mm-active' : '' ?>" style="text-decoration:none;">
                         <i class="fa fa-book"></i>
                         Appointment History
                     </a>
                 </li>
                 <li>
-                    <a href="?view=BOOK"  style="text-decoration:none;">
+                    <a href="?view=BOOK" class="<?= $current_view == 'BOOK' ? 'mm-active' : '' ?>" style="text-decoration:none;">
                         <i class="fa fa-calendar"></i>
                         Book Appointment
                     </a>

@@ -43,8 +43,10 @@
                                             <td>".$value['schedule_date']."</td>
                                             <td>
                                               <a href='?view=SPECIFICACCOUNTBOOKVIEW&aid=".$value['aid']."&client_id=".$uid."' class='btn btn-success btn-sm'> <i class='fa fa-folder-open'></i></span></a>
+                                               <a href='#addUpdateComment_".$value['aid']."' class='btn btn-success btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-comments-o'></i></span></a>
                                             </td>
                                         </tr>";
+                                        include('../../assets/modal/generic_update_modal.php');
                                 }
                             }
                             ?>

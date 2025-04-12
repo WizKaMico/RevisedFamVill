@@ -593,7 +593,8 @@ if(!empty($_GET['action']))
             $fullname = filter_input(INPUT_POST, "fullname", FILTER_SANITIZE_STRING);
             $contact = filter_input(INPUT_POST, "contact", FILTER_SANITIZE_STRING);
             $dob = filter_input(INPUT_POST, "dob", FILTER_SANITIZE_STRING);
-            $doa = filter_input(INPUT_POST, "doa", FILTER_SANITIZE_STRING);
+            $date_option = filter_input(INPUT_POST, "date_option", FILTER_SANITIZE_STRING);
+            $doa = ($date_option == "today") ? filter_input(INPUT_POST, "doa1", FILTER_SANITIZE_STRING) : filter_input(INPUT_POST, "doa2", FILTER_SANITIZE_STRING);
             $gender = filter_input(INPUT_POST, "gender", FILTER_SANITIZE_STRING);
             $purpose = filter_input(INPUT_POST, "purpose", FILTER_SANITIZE_STRING);
             $purpose_description = filter_input(INPUT_POST, "purpose_description", FILTER_SANITIZE_STRING);
@@ -608,12 +609,21 @@ if(!empty($_GET['action']))
 
             $age = calculateAge($dob);
 
-            if(!empty($account_id) && !empty($client_id) && !empty($pid) && !empty($fullname) && !empty($contact) && !empty($dob) && !empty($doa) && !empty($gender) && !empty($purpose) && !empty($purpose_description) && !empty($fromIns) && !empty($age))
+            $user_id = filter_input(INPUT_POST, "user_id", FILTER_SANITIZE_STRING);
+
+            if(!empty($account_id) && !empty($client_id) && !empty($pid) && !empty($fullname) && !empty($contact) && !empty($dob) && !empty($doa) && !empty($gender) && !empty($purpose) && !empty($purpose_description) && !empty($fromIns))
             {
                 try
                 {
                     $activity = 'ADD BOOKING '.$pid;
-                    $result = $portCont->acceptBooking($account_id, $pid, $client_id, $dob, $age, $fullname, $purpose, $purpose_description, $gender, $doa, $fromIns);
+                    if($date_option == "today")
+                    {
+                        $result = $portCont->acceptBookingAdmin($account_id, $pid, $client_id, $dob, $age, $fullname, $purpose, $purpose_description, $gender, $doa, $fromIns, $user_id);
+                    }
+                    else
+                    {
+                        $result = $portCont->acceptBooking($account_id, $pid, $client_id, $dob, $age, $fullname, $purpose, $purpose_description, $gender, $doa, $fromIns);
+                    }
                     $appointmentPatient = strtoupper($result[0]["fullname"]);
                     $appointmentSchedule = $result[0]["schedule_date"];
                     $appointmentStatus = $result[0]["status"];
@@ -627,9 +637,13 @@ if(!empty($_GET['action']))
                 }
                 catch(Exception $e)
                 {
-                    header('Location: ?view=SPECIFICACCOUNTBOOK&client_id='.$client_id.'&message=success');
+                    header('Location: ?view=SPECIFICACCOUNTBOOK&client_id='.$client_id.'&message=failed&1');
                 }
-            }   
+            }
+            else
+            {
+                header('Location: ?view=SPECIFICACCOUNTBOOK&client_id='.$client_id.'&message=failed&2');
+            }
 
         }
     break;
@@ -645,6 +659,8 @@ if(!empty($_GET['action']))
             $url = $_GET['url'];
             $code = $_GET['code'];
             $email = $_GET['email'];
+          if($method != "cash_payment")
+          {
             if(!empty($account_id) && !empty($aid) && !empty($client_id) && !empty($method) && !empty($trans_id) && !empty($url) && !empty($code) && !empty($email))
             {
                 try
@@ -660,6 +676,27 @@ if(!empty($_GET['action']))
                     exit;
                 }
             }
+          }
+          else
+          {
+            if(!empty($account_id) && !empty($aid) && !empty($client_id) && !empty($method) && !empty($code) && !empty($email))
+            {
+                try
+                {
+                    $trans_id = 0;
+                    $url = 0;
+                    $accountResult = $portCont->myAppointmentBookingPayment($account_id, $aid, $client_id, $method, $trans_id, $url, $code, $email);
+                    $portCont->updateBookingStatusAfterPaymentCash($aid);
+                    header('Location:?view=SPECIFICACCOUNTBOOK&client_id=' . $client_id . '&message=success');
+                    exit;
+                }
+                catch(Exception $e)
+                {
+                    header('Location:?view=SPECIFICACCOUNTBOOK&client_id=' . $client_id . '&message=failed');
+                    exit;
+                }
+            }
+          }
         }
     break;
 
@@ -1332,12 +1369,32 @@ if(!empty($_GET['action']))
                         const chart = new google.visualization.PieChart(
                             document.getElementById("piechart1")
                         );
+
+                        // Draw chart
                         chart.draw(data, options);
+
+                        // === 🔥 Add event listener for legend clicks ===
+                        google.visualization.events.addListener(chart, "select", function () {
+                            const selection = chart.getSelection();
+                            if (selection.length > 0) {
+                            const selectedRow = selection[0].row;
+                            const selectedMethod = data.getValue(selectedRow, 0); // Get method name
+                            filterActivitySchedulingTable(selectedMethod);
+                            }
+                        });
                         })
                         .catch((error) =>
                         console.error("Error fetching first pie chart data:", error)
                         );
                     }
+
+
+                    function filterActivitySchedulingTable(method) {
+                    const table = $("#activityScheduling").DataTable();
+                    table.search(method).draw(); // Filters rows based on method string
+                    }
+
+
 
                     // === Bar Chart ===
                     function drawBarChartOverall() {

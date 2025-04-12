@@ -18,13 +18,13 @@
     </div>
     <div class="col-md-3">
         <div class="main-card mb-3 card">
-            <div class="card-header">ACCOUNTS : <?php echo $accounts_chart[0]['count']; ?></div>
+            <div class="card-header">ACCOUNTS : <?php echo $inquiry[0]['count']; ?></div>
             <div id="piechart2" style="width: 100%; height: 400px;"></div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="main-card mb-3 card">
-            <div class="card-header">INQUIRY : <?php echo $inquiry[0]['count']; ?></div>
+            <div class="card-header">INQUIRY : <?php echo $accounts_chart[0]['count']; ?></div>
             <div id="barchart2" style="width: 100%; height: 400px;"></div>
         </div>
     </div>
