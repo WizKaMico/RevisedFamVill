@@ -36,7 +36,7 @@
                             align-items: center; 
                             justify-content: center;"></a>
                             <hr />
-                            <a href="?view=SUBSCRIPTIONPAYMENT&action=PAYNOW&method=gcash&url=<?php echo urlencode($checkoutUrlGrabPay); ?>&trans_id=<?php echo $sourceId; ?>&code=<?php echo $code; ?>&email=<?php echo $_GET['email']; ?>&account_type=<?php  echo $accountType['account_type'];  ?>" class="btn btn-primary w-100" style="background-image:url('assets/payment/logo/gpay.png'); background-size: contain; 
+                            <a href="?view=SUBSCRIPTIONPAYMENT&action=PAYNOW&method=gcash&url=<?php echo urlencode($checkoutUrlGcash); ?>&trans_id=<?php echo $sourceId; ?>&code=<?php echo $code; ?>&email=<?php echo $_GET['email']; ?>&account_type=<?php  echo $accountType['account_type'];  ?>" class="btn btn-primary w-100" style="background-image:url('assets/payment/logo/gpay.png'); background-size: contain; 
                             background-position: center; 
                             background-repeat: no-repeat; 
                             color: white; 

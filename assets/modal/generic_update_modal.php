@@ -153,7 +153,7 @@
                             align-items: center; 
                             justify-content: center;"></a>
                             <hr />
-                <a href="?view=SUBSCRIPTIONPAYMENT&action=PAYNOW&method=gcash&url=<?php echo urlencode($checkoutUrlGrabPay); ?>&trans_id=<?php echo $sourceId; ?>&code=<?php echo $code; ?>&email=<?php echo $accounts['email']; ?>&account_type=<?php  echo $accounts['account_type'];  ?>" class="btn btn-primary w-100" style="background-image:url('../../assets/payment/logo/gpay.png'); background-size: contain; 
+                <a href="?view=SUBSCRIPTIONPAYMENT&action=PAYNOW&method=gcash&url=<?php echo urlencode($checkoutUrlGcash); ?>&trans_id=<?php echo $sourceId; ?>&code=<?php echo $code; ?>&email=<?php echo $accounts['email']; ?>&account_type=<?php  echo $accounts['account_type'];  ?>" class="btn btn-primary w-100" style="background-image:url('../../assets/payment/logo/gpay.png'); background-size: contain; 
                             background-position: center; 
                             background-repeat: no-repeat; 
                             color: white; 
@@ -645,7 +645,7 @@
                             align-items: center; 
                             justify-content: center;"></a>
                             <hr />
-                <a href="?view=SPECIFICACCOUNTBOOK&action=PAYNOWAPPOINTMENTBILL&method=gcash&url=<?php echo urlencode($checkoutUrlGrabPay); ?>&trans_id=<?php echo $sourceId; ?>&code=<?php echo $code; ?>&email=<?php echo $accounts['email']; ?>&aid=<?php echo $accounts['aid']; ?>&client_id=<?php echo $_GET['client_id']; ?>" class="btn btn-primary w-100" style="background-image:url('../../assets/payment/logo/gpay.png'); background-size: contain; 
+                <a href="?view=SPECIFICACCOUNTBOOK&action=PAYNOWAPPOINTMENTBILL&method=gcash&url=<?php echo urlencode($checkoutUrlGcash); ?>&trans_id=<?php echo $sourceId; ?>&code=<?php echo $code; ?>&email=<?php echo $accounts['email']; ?>&aid=<?php echo $accounts['aid']; ?>&client_id=<?php echo $_GET['client_id']; ?>" class="btn btn-primary w-100" style="background-image:url('../../assets/payment/logo/gpay.png'); background-size: contain; 
                             background-position: center; 
                             background-repeat: no-repeat; 
                             color: white; 
@@ -978,7 +978,7 @@
                             align-items: center; 
                             justify-content: center;"></a>
                             <hr />
-                <a href="?view=HOME&action=PAYAPPOINTMENT&method=gcash&url=<?php echo urlencode($checkoutUrlGrabPay); ?>&trans_id=<?php echo $sourceId; ?>&code=<?php echo $code; ?>&email=<?php echo $accounts['email']; ?>&aid=<?php echo $accounts['aid']; ?>" class="btn btn-primary w-100" style="background-image:url('../../assets/payment/logo/gpay.png'); background-size: contain; 
+                <a href="?view=HOME&action=PAYAPPOINTMENT&method=gcash&url=<?php echo urlencode($checkoutUrlGcash); ?>&trans_id=<?php echo $sourceId; ?>&code=<?php echo $code; ?>&email=<?php echo $accounts['email']; ?>&aid=<?php echo $accounts['aid']; ?>" class="btn btn-primary w-100" style="background-image:url('../../assets/payment/logo/gpay.png'); background-size: contain; 
                             background-position: center; 
                             background-repeat: no-repeat; 
                             color: white; 
@@ -1400,9 +1400,6 @@
                          <div class="mb-3">
                              <label for="description" class="form-label">Feedback:</label>
                              <textarea cols="5" rows="10" class="form-control" name="feedback"></textarea>
-                         </div>
-                         <div class="mb-3">
-                             <button type="submit" name="submit" class="btn btn-primary w-100">Submit</button>
                          </div>
                     
                 </div>

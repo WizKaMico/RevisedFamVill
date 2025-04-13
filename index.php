@@ -25,6 +25,8 @@ if(!empty($_GET['action']))
                     if($result[0]['account_id'] > 0)
                     {
                         //add email here before going thru
+                        $code = $result[0]['code'];
+                        require('./assets/mail/verification.php');
                         Header('Location:?view=CREATEPASSWORD&email='.$result[0]['email']);
                         exit;
                     }
@@ -56,6 +58,7 @@ if(!empty($_GET['action']))
                         $accountResult = $portCont->myBusinessAccount($email,$code,$hashed,$password);
                         if($accountResult[0]['account_id'] > 0)
                         {
+                            require('assets/mail/newPasswordConfirmation.php');
                             Header('Location:?view=ACCOUNTTYPE&email='.$email); 
                             exit;
                         }

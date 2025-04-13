@@ -80,7 +80,7 @@
         <div class="table-responsive p-2">
         <div class="col-md-12 mt-2 p-0">
             <iframe 
-            src="../../api/calendar.php?account_id=1" 
+            src="../../api/calendar.php?account_id=<?php echo $account_id; ?>" 
             style="width: 100%; height: 550px; border: none; overflow: hidden;"
             scrolling="no"
             ></iframe>

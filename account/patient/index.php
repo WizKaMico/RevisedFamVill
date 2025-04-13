@@ -47,7 +47,8 @@ if(!empty($_GET['action']))
                     if(!empty($appointmentPatient) && !empty($appointmentSchedule) && !empty($appointmentStatus))
                     {
                         $activity = "${appointmentStatus} BOOKING HAS BEEN ADDED FOR PATIENT : ${appointmentPatient} | SCHEDULE : ${appointmentSchedule}";
-                        // require("../connection/mail/checkUpNotification.php");
+                        $email = $result[0]["email"];
+                        require("../../assets/mail/checkUpNotification.php");
                         header('Location: ?view=BOOK&message=success');
                         exit;
                     }

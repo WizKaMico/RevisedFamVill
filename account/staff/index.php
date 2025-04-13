@@ -168,10 +168,12 @@ if(!empty($_GET['action']))
                         $appointmentPatient = strtoupper($result[0]["fullname"]);
                         $appointmentSchedule = $result[0]["schedule_date"];
                         $appointmentStatus = $result[0]["status"];
+                        $email = $result[0]["email"];
                         if(!empty($appointmentPatient) && !empty($appointmentSchedule) && !empty($appointmentStatus))
                         {
+                            $business_name = $account[0]['business_name'];
                             $activity = "${appointmentStatus} BOOKING HAS BEEN ADDED FOR PATIENT : ${appointmentPatient} | SCHEDULE : ${appointmentSchedule}";
-                            // require("../connection/mail/checkUpNotification.php");
+                            require("../../assets/mail/checkUpNotification.php");
                             header('Location: ?view=SPECIFICACCOUNTBOOK&client_id='.$client_id.'&message=success');
                             exit;
                         }
