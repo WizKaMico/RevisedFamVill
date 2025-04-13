@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2025 at 08:32 AM
+-- Generation Time: Apr 13, 2025 at 12:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -180,38 +180,38 @@ SELECT CBA.* FROM clinic_business_account CBA WHERE CBA.email = email;
 END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `clinic_business_createAccountPassword_preliminary` (IN `email` VARCHAR(50), IN `code` INT(50), IN `hashed` VARCHAR(255), IN `password` VARCHAR(50))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clinic_business_createAccountPassword_preliminary` (IN `emailx` VARCHAR(50), IN `codex` INT(50), IN `hashedx` VARCHAR(255), IN `passwordx` VARCHAR(50))   BEGIN
   DECLARE isAccountExist INT DEFAULT 0; 
     DECLARE accountStatus VARCHAR(50);
 
     -- Check if account exists
     SELECT COUNT(*) INTO isAccountExist 
     FROM clinic_business_account CBA
-    WHERE CBA.email = email AND CBA.code = code;
+    WHERE CBA.email = emailx AND CBA.code = codex;
 
     IF isAccountExist > 0 THEN
         -- Fetch account status
         SELECT CBA.status INTO accountStatus 
         FROM clinic_business_account CBA
-        WHERE CBA.email = email AND CBA.code = code;
+        WHERE CBA.email = emailx AND CBA.code = codex;
 
         -- If already subscribed, update only the password
         IF accountStatus = 'SUBSCRIBED' THEN
             UPDATE clinic_business_account CBA
             SET CBA.password = hashed, 
                 CBA.unhashed = password 
-            WHERE CBA.email = email AND CBA.code = code;
+            WHERE CBA.email = xemail AND CBA.code = codex;
         ELSE
             -- Otherwise, update password and mark as confirmed
             UPDATE clinic_business_account CBA
-            SET CBA.password = hashed, 
-                CBA.unhashed = password, 
+            SET CBA.password = hashedx, 
+                CBA.unhashed = passwordx, 
                 CBA.status = 'CONFIRMED' 
-            WHERE email = email AND code = code;
+            WHERE CBA.email = emailx AND CBA.code = codex;
         END IF;
 
         -- Return updated account details
-        SELECT * FROM clinic_business_account CBA
+        SELECT CBA.* FROM clinic_business_account CBA
         WHERE CBA.email = email AND CBA.code = code;
     END IF;
 END$$
@@ -1948,7 +1948,55 @@ INSERT INTO `clinic_account_owner_history` (`actid`, `account_id`, `page`, `acco
 (1479, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
 (1480, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
 (1481, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
-(1482, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13');
+(1482, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(1483, 1, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(1484, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-13'),
+(1485, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(1486, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(1487, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(1488, 1, 'SERVICE', 'Navigate to SERVICE', '2025-04-13'),
+(1489, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1490, 5, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(1491, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1492, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1493, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1494, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1495, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1496, 5, 'ACCOUNTS', 'Created Service Role to ACCOUNTS', '2025-04-13'),
+(1497, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1498, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1499, 5, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(1500, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1501, 5, 'ACCOUNTS', 'Deleted Service Role to ACCOUNTS', '2025-04-13'),
+(1502, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1503, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1504, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1505, 5, 'ACCOUNTS', 'Created Service Role to ACCOUNTS', '2025-04-13'),
+(1506, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1507, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1508, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1509, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1510, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1511, 5, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(1512, 5, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-13'),
+(1513, 5, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(1514, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1515, 5, 'BILLING', 'Navigate to BILLING', '2025-04-13'),
+(1516, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1517, 5, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-13'),
+(1518, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1519, 5, 'REPORTS', 'Navigate to REPORTS', '2025-04-13'),
+(1520, 5, 'REPORTS', 'Navigate to REPORTS', '2025-04-13'),
+(1521, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1522, 5, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-13'),
+(1523, 5, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-13'),
+(1524, 5, 'REPORTS', 'Navigate to REPORTS', '2025-04-13'),
+(1525, 5, 'SERVICE', 'Navigate to SERVICE', '2025-04-13'),
+(1526, 5, 'REPORTS', 'Navigate to REPORTS', '2025-04-13'),
+(1527, 1, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(1528, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-13'),
+(1529, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(1530, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13');
 
 -- --------------------------------------------------------
 
@@ -2573,7 +2621,14 @@ INSERT INTO `clinic_account_staff_history` (`actid`, `account_id`, `user_id`, `p
 (446, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-13'),
 (447, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-13'),
 (448, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
-(449, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13');
+(449, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(450, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(451, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(452, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(453, 1, 2, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(454, 1, 2, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(455, 1, 2, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-13'),
+(456, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-13');
 
 -- --------------------------------------------------------
 
@@ -2634,7 +2689,7 @@ CREATE TABLE `clinic_account_type` (
 --
 
 INSERT INTO `clinic_account_type` (`account_type`, `account`, `description`, `amount`, `date_created`) VALUES
-(1, 'OCS - PLAN1', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus voluptas tempore blanditiis, necessitatibus est accusamus quod numquam quasi laborum iste esse ducimus ratione repudiandae, molestiae autem. Non maiores assumenda minima.', 500.00, '2025-03-15'),
+(1, 'OCS - PLAN1', 'TEST TEST', 500.00, '2025-03-15'),
 (2, 'OCS - PLAN2', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus voluptas tempore blanditiis, necessitatibus est accusamus quod numquam quasi laborum iste esse ducimus ratione repudiandae, molestiae autem. Non maiores assumenda minima.', 1000.00, '2025-03-15'),
 (3, 'OCS - PLAN3', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus voluptas tempore blanditiis, necessitatibus est accusamus quod numquam quasi laborum iste esse ducimus ratione repudiandae, molestiae autem. Non maiores assumenda minima.', 1500.00, '2025-03-15');
 
@@ -2695,8 +2750,10 @@ CREATE TABLE `clinic_business_account` (
 INSERT INTO `clinic_business_account` (`account_id`, `business_name`, `email`, `phone`, `region`, `province`, `city`, `barangay`, `street`, `password`, `unhashed`, `business_ownership`, `business_cert`, `business_tin`, `status`, `code`, `date_created`) VALUES
 (1, 'FamVill', 'familyvilleofficial@gmail.com', '09171439388', 'National Capital Region (NCR)', 'Ncr, Second District', 'Quezon City', 'Santa Lucia', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'Sole Proprietor', 'uploads/1742302421_1742035607_BSIS4E-GROUP3_ACM_FORMAT.docx', '11111111', 'SUBSCRIBED', 6690, '2025-03-18'),
 (3, 'FamCrisis', 'revcoreitsolutions@gmail.com', '9531599179', 'Autonomous Region in Muslim Mindanao (ARMM)', 'Basilan', 'Tabuan-lasa', 'Saluping', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '21232f297a57a5a743894a0e4a801fc3', 'admin', NULL, NULL, NULL, 'CONFIRMED', 7293, '2025-04-04'),
-(4, 'TESTSHIT', 'shit@gmail.com', '091666666690', 'National Capital Region (NCR)', 'Ncr, Fourth District', 'City Of Muntinlupa', 'Bayanan', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '21232f297a57a5a743894a0e4a801fc3', 'admin', NULL, NULL, NULL, 'CONFIRMED', 8425, '2025-04-05'),
-(5, 'SHITZU', 'gmfacistol@outlook.com', '09171439377', 'National Capital Region (NCR)', 'Ncr, Second District', 'City Of San Juan', 'Santa Lucia', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'Sole Proprietor', 'uploads/1744524153_Revisions.docx', '11111111', 'SUBSCRIBED', 8407, '2025-04-13');
+(4, 'TESTSHIT', 'shit@gmail.com', '091666666690', 'National Capital Region (NCR)', 'Ncr, Fourth District', 'City Of Muntinlupa', 'Bayanan', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '098f6bcd4621d373cade4e832627b4f6', 'test', NULL, NULL, NULL, 'CONFIRMED', 8425, '2025-04-05'),
+(5, 'SHITZU', 'gmfacistol@outlook.com', '09171439377', 'National Capital Region (NCR)', 'Ncr, Second District', 'City Of San Juan', 'Santa Lucia', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'Sole Proprietor', 'uploads/1744524153_Revisions.docx', '11111111', 'SUBSCRIBED', 8407, '2025-04-13'),
+(6, 'REACT', 'reactgaming012@gmail.com', '0917141010', 'Region V (Bicol Region)', 'Catanduanes', 'Panganiban', 'San Nicolas (Pob.)', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'Partnership', 'uploads/1744531194_new concerns.docx', '11111111', 'SUBSCRIBED', 9914, '2025-04-13'),
+(7, 'AMANAMIN', 'tricore012@gmail.com', '09531599189', 'Region XIII (Caraga)', 'Agusan Del Norte', 'Remedios T. Romualdez', 'Balangbalang', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'Sole Proprietor', 'uploads/1744537722_new concerns.docx', '11111111', 'VERIFIED', 8370, '2025-04-13');
 
 -- --------------------------------------------------------
 
@@ -2894,7 +2951,8 @@ CREATE TABLE `clinic_business_account_subscription` (
 INSERT INTO `clinic_business_account_subscription` (`subs_id`, `account_id`, `paymethod`, `trans_id`, `email`, `code`, `account_type`, `status`, `date_created`) VALUES
 (1, 1, 'grabpay', 'src_RsZmDqiXnMwCvs4zKvWnrZgw', 'familyvilleofficial@gmail.com', '7056', 3, 'PAYED', '2025-03-18'),
 (2, 1, 'gcash', 'src_ZAHTaMrcZHrpowJMGnQPaQPN', 'familyvilleofficial@gmail.com', '7700', 3, 'PENDING', '2025-03-28'),
-(3, 5, 'gcash', 'src_ZcgtM2gkY31DiPvgfCYiV4U9', 'gmfacistol@outlook.com', '7125', 2, 'PAYED', '2025-04-13');
+(3, 5, 'gcash', 'src_ZcgtM2gkY31DiPvgfCYiV4U9', 'gmfacistol@outlook.com', '7125', 2, 'PAYED', '2025-04-13'),
+(4, 6, 'gcash', 'src_biUHXNc1Yx381sELhtTZcriF', 'reactgaming012@gmail.com', '7422', 3, 'PAYED', '2025-04-13');
 
 -- --------------------------------------------------------
 
@@ -3022,7 +3080,8 @@ INSERT INTO `clinic_business_my_appointment_payment` (`payid`, `account_id`, `ai
 (17, 1, 18, 1, 'cash_payment', '0', '0', '8573', 'jerwin@outlook.com', '2025-04-13'),
 (18, 1, 19, 1, 'cash_payment', '0', '0', '9569', 'jerwin@outlook.com', '2025-04-13'),
 (19, 1, 15, 1, 'gcash', 'src_PKg1swXNqKs5kJWMfkBdvHTL', 'https://test-sources.paymongo.com/sources?id=src_y7nU73Hey5VP3umVHPvMG9r2', '8549', 'jerwin@outlook.com', '2025-04-13'),
-(20, 1, 20, 3, 'gcash', 'src_orbX9A6TzqajY5WVuY8PJQZu', 'https://test-sources.paymongo.com/sources?id=src_orbX9A6TzqajY5WVuY8PJQZu', '9160', 'gmfacistol@outlook.com', '2025-04-13');
+(20, 1, 20, 3, 'gcash', 'src_orbX9A6TzqajY5WVuY8PJQZu', 'https://test-sources.paymongo.com/sources?id=src_orbX9A6TzqajY5WVuY8PJQZu', '9160', 'gmfacistol@outlook.com', '2025-04-13'),
+(21, 1, 20, 3, 'gcash', 'src_orbX9A6TzqajY5WVuY8PJQZu', 'https://test-sources.paymongo.com/sources?id=src_orbX9A6TzqajY5WVuY8PJQZu', '9160', 'gmfacistol@outlook.com', '2025-04-13');
 
 -- --------------------------------------------------------
 
@@ -3044,7 +3103,9 @@ CREATE TABLE `clinic_business_roles` (
 INSERT INTO `clinic_business_roles` (`role_id`, `account_id`, `role_name`, `date_created`) VALUES
 (1, 1, 'Doctor', '2025-03-18'),
 (2, 1, 'Assistant Doctor', '2025-03-18'),
-(3, 1, 'Erwin', '2025-03-30');
+(3, 1, 'Erwin', '2025-03-30'),
+(4, 5, 'DOCTOR', '2025-04-13'),
+(5, 5, 'ASSISTANT DOCTOR', '2025-04-13');
 
 -- --------------------------------------------------------
 
@@ -3086,7 +3147,8 @@ CREATE TABLE `clinic_business_service_account` (
 --
 
 INSERT INTO `clinic_business_service_account` (`sid`, `account_id`, `role_id`, `date_created`) VALUES
-(2, 1, 1, '2025-03-28');
+(2, 1, 1, '2025-03-28'),
+(5, 5, 4, '2025-04-13');
 
 -- --------------------------------------------------------
 
@@ -3457,7 +3519,7 @@ ALTER TABLE `clinic_account_order_item`
 -- AUTO_INCREMENT for table `clinic_account_owner_history`
 --
 ALTER TABLE `clinic_account_owner_history`
-  MODIFY `actid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1483;
+  MODIFY `actid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1531;
 
 --
 -- AUTO_INCREMENT for table `clinic_account_patient_history`
@@ -3481,7 +3543,7 @@ ALTER TABLE `clinic_account_product`
 -- AUTO_INCREMENT for table `clinic_account_staff_history`
 --
 ALTER TABLE `clinic_account_staff_history`
-  MODIFY `actid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=450;
+  MODIFY `actid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=457;
 
 --
 -- AUTO_INCREMENT for table `clinic_account_theme_header`
@@ -3511,7 +3573,7 @@ ALTER TABLE `clinic_admin`
 -- AUTO_INCREMENT for table `clinic_business_account`
 --
 ALTER TABLE `clinic_business_account`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_account_announcement`
@@ -3553,7 +3615,7 @@ ALTER TABLE `clinic_business_account_paymentintegration`
 -- AUTO_INCREMENT for table `clinic_business_account_subscription`
 --
 ALTER TABLE `clinic_business_account_subscription`
-  MODIFY `subs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `subs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_appointment_feedback`
@@ -3577,13 +3639,13 @@ ALTER TABLE `clinic_business_main_paymongo_configuration`
 -- AUTO_INCREMENT for table `clinic_business_my_appointment_payment`
 --
 ALTER TABLE `clinic_business_my_appointment_payment`
-  MODIFY `payid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `payid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_roles`
 --
 ALTER TABLE `clinic_business_roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_service`
@@ -3595,7 +3657,7 @@ ALTER TABLE `clinic_business_service`
 -- AUTO_INCREMENT for table `clinic_business_service_account`
 --
 ALTER TABLE `clinic_business_service_account`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_service_ticket`

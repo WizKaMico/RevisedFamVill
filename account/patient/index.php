@@ -253,7 +253,7 @@ if(!empty($_GET['action']))
     <meta name="description" content="">
     <meta name="keywords" content="">
     <link rel="stylesheet" href="../assets/css/style.css">
-
+    
 </head>
 
 <body>

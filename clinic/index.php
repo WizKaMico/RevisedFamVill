@@ -265,12 +265,7 @@ if(!empty($_GET['action']))
 
     <!-- Main CSS File -->
     <link href="../assets/css/main.css" rel="stylesheet">
-    <?php 
-    if(!empty($_GET['view']))
-    {
-        // include('assets/alert/alert.php'); 
-    }
-    ?>
+    <?php  include('../assets/alert/genericSwal.php'); ?>
     <!-- =======================================================
   * Template Name: Online Clinic System | OCS
   * Updated: Nov 13, 2024

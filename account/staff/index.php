@@ -330,7 +330,7 @@ if(!empty($_GET['action']))
     <meta name="description" content="">
     <meta name="keywords" content="">
     <link rel="stylesheet" href="../assets/css/style.css">
-
+    <?php include('../../assets/alert/adminSwal.php'); ?>
 </head>
 
 <body>
@@ -356,7 +356,7 @@ if(!empty($_GET['action']))
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="../../assets/css/tab.css" rel="stylesheet">
-
+        <?php include('../../assets/alert/adminSwal.php'); ?>
     </head>
 
     <body>

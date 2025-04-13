@@ -61,7 +61,7 @@
                         <thead>
                             <th>Id</th>
                             <th>Role</th>
-                            <th>Action</th>
+                            <!-- <th>Action</th> -->
                         </thead>
                         <tbody>
                             <?php
@@ -72,10 +72,11 @@
                                     "<tr>
                                         <td>".$accounts['sid']."</td>   
                                         <td>".$accounts['role_name']."</td>
-                                        <td>
-                                         <a href='#deleteServiceRoleAccounts_".$accounts['sid']."' class='btn btn-danger btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-trash'></i></span> Delete</a>
-                                        </td>
+                                        
                                     </tr>";
+                                    // <td>
+                                        //  <a href='#deleteServiceRoleAccounts_".$accounts['sid']."' class='btn btn-danger btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-trash'></i></span> Delete</a>
+                                        // </td>
                                     include('../../assets/modal/generic_update_modal.php'); 
                                 }
                             }

@@ -17,7 +17,12 @@
                          </div>
                          <div class="mb-3">
                              <label for="dob" class="form-label">Date of Birth:</label>
-                             <input type="date" class="form-control" id="dob" min="2008-01-01" placeholder="Enter Date of Birth"
+                             <?php 
+                             date_default_timezone_set('Asia/Manila'); 
+                             $date = date('Y-m-d');
+                             ?>
+
+                             <input type="date" class="form-control" id="dob" min="2008-01-01" max="<?php echo $date; ?>" placeholder="Enter Date of Birth"
                                  name="dob">
                          </div>
                          <div class="mb-3">
