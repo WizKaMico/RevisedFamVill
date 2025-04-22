@@ -7,7 +7,7 @@ $specificAccount = $portCont->myClinicSpecificAccountInfo($account_id,$client_id
     <div class="col-md-8">
         <div class="main-card mb-3 card">
             <div class="card-header">APPOINTMENT HISTORY OF <?php echo strtoupper($specificAccount[0]['fullname']); ?></div>
-            <a href="?view=SPECIFICACCOUNTBOOK&client_id=<?php echo $_GET['client_id'] ?>" class="btn btn-primary" style="width:5%; margin-left:10px;"></i> BACK</a>
+            <a href="?view=SPECIFICACCOUNTBOOK&client_id=<?php echo $_GET['client_id'] ?>" class="btn btn-primary" style="width:7%; margin-left:10px;"></i> BACK</a>
             <div class="table-responsive">
                 <div class="col-md-12 mt-2">
                 <table id="activityScheduling" class="align-middle mb-0 table table-borderless table-striped table-hover">
