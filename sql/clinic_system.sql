@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2025 at 12:02 PM
+-- Generation Time: Apr 22, 2025 at 09:51 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,7 +70,7 @@ WHERE CBAA.uid = uid;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `clinic_businessPatientBookingViewUpcoming` (IN `uid` INT(10), IN `dateToday` DATE)   BEGIN
-SELECT CBAA.*,CBS.service,CBADA.diagnosis as diagnosis,CBAUP.paygrade as amount,CBAU.fullname as doctor,CBAP.email as email FROM clinic_business_account_appointment CBAA LEFT JOIN clinic_business_service CBS ON CBAA.purpose = CBS.bsid LEFT JOIN clinic_business_assigned_doctor_appointment CBADA ON CBAA.aid = CBADA.aid LEFT JOIN clinic_bussiness_account_users_paygrade CBAUP ON CBADA.user_id = CBAUP.user_id LEFT JOIN clinic_bussiness_account_users CBAU ON CBADA.user_id = CBAU.user_id LEFT JOIN clinic_business_account_patient CBAP ON CBAA.uid = CBAP.client_id WHERE CBAA.uid = uid AND CBAA.schedule_date = dateToday;
+SELECT CBAA.*,CBS.service,CBADA.diagnosis as diagnosis,CBAUP.paygrade as amount,CBAU.fullname as doctor,CBAP.email as email, CBAA.date_birth as dob FROM clinic_business_account_appointment CBAA LEFT JOIN clinic_business_service CBS ON CBAA.purpose = CBS.bsid LEFT JOIN clinic_business_assigned_doctor_appointment CBADA ON CBAA.aid = CBADA.aid LEFT JOIN clinic_bussiness_account_users_paygrade CBAUP ON CBADA.user_id = CBAUP.user_id LEFT JOIN clinic_bussiness_account_users CBAU ON CBADA.user_id = CBAU.user_id LEFT JOIN clinic_business_account_patient CBAP ON CBAA.uid = CBAP.client_id WHERE CBAA.uid = uid AND CBAA.schedule_date = dateToday;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `clinic_business_accountLogin` (IN `session_id` INT(11))   BEGIN
@@ -229,11 +229,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `clinic_business_inquiry` (IN `fulln
 INSERT INTO clinic_main_inquiry (fullname,email,subject,message) VALUES (fullname,email,subject,message);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `clinic_business_login` (IN `email` VARCHAR(50), IN `password` VARCHAR(255))   BEGIN 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clinic_business_login` (IN `emailx` VARCHAR(50), IN `passwordx` VARCHAR(255))   BEGIN 
 DECLARE isAccountExist INT DEFAULT 0;
-SELECT COUNT(*) INTO isAccountExist FROM clinic_business_account CBA WHERE CBA.email = email AND CBA.password = password;
+SELECT COUNT(*) INTO isAccountExist FROM clinic_business_account CBA WHERE CBA.email = emailx AND CBA.password = passwordx;
 IF isAccountExist > 0 THEN
-SELECT CBA.* FROM clinic_business_account CBA WHERE CBA.email = email AND CBA.password = password;
+SELECT CBA.* FROM clinic_business_account CBA WHERE CBA.email = emailx AND CBA.password = passwordx;
 END IF;
 END$$
 
@@ -1996,7 +1996,745 @@ INSERT INTO `clinic_account_owner_history` (`actid`, `account_id`, `page`, `acco
 (1527, 1, 'HOME', 'Navigate to HOME', '2025-04-13'),
 (1528, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-13'),
 (1529, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
-(1530, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13');
+(1530, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(1531, 8, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(1532, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1533, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1534, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1535, 8, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(1536, 8, 'BILLING', 'Navigate to BILLING', '2025-04-13'),
+(1537, 8, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-13'),
+(1538, 8, 'INTEGRATION', 'Created New Integration to INTEGRATION', '2025-04-13'),
+(1539, 8, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-13'),
+(1540, 8, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-13'),
+(1541, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1542, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1543, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1544, 8, 'ACCOUNTS', 'Created New Account to ACCOUNTS', '2025-04-13'),
+(1545, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1546, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1547, 8, 'ACCOUNTS', 'Created New Account to ACCOUNTS', '2025-04-13'),
+(1548, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1549, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1550, 8, 'ACCOUNTS', 'Created New Account to ACCOUNTS', '2025-04-13'),
+(1551, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1552, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1553, 8, 'ACCOUNTS', 'Created New Account to ACCOUNTS', '2025-04-13'),
+(1554, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1555, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1556, 8, 'ACCOUNTS', 'Update Accounts to ACCOUNTS', '2025-04-13'),
+(1557, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1558, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1559, 8, 'ACCOUNTS', 'Verified/Unverified Accounts to ACCOUNTS', '2025-04-13'),
+(1560, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1561, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1562, 8, 'ACCOUNTS', 'Verified/Unverified Accounts to ACCOUNTS', '2025-04-13'),
+(1563, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1564, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1565, 8, 'ACCOUNTS', 'Added Paygrade Accounts to ACCOUNTS', '2025-04-13'),
+(1566, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1567, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1568, 8, 'ACCOUNTS', 'Added Paygrade Accounts to ACCOUNTS', '2025-04-13'),
+(1569, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1570, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1571, 8, 'ACCOUNTS', 'Added Paygrade Accounts to ACCOUNTS', '2025-04-13'),
+(1572, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1573, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1574, 8, 'ACCOUNTS', 'Created Service Role to ACCOUNTS', '2025-04-13'),
+(1575, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1576, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1577, 8, 'SERVICE', 'Navigate to SERVICE', '2025-04-13'),
+(1578, 8, 'SERVICE', 'Created Service on SERVICE', '2025-04-13'),
+(1579, 8, 'SERVICE', 'Navigate to SERVICE', '2025-04-13'),
+(1580, 8, 'SERVICE', 'Navigate to SERVICE', '2025-04-13'),
+(1581, 8, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-13'),
+(1582, 8, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-13'),
+(1583, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1584, 8, 'MYACCOUNT', 'Navigate to MYACCOUNT', '2025-04-13'),
+(1585, 8, 'PATIENT', 'Create Patient on PATIENT', '2025-04-13'),
+(1586, 8, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(1587, 8, 'PATIENT', 'Updated Status Integration on PATIENT', '2025-04-13'),
+(1588, 8, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(1589, 8, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(1590, 8, 'SPECIFICACCOUNTBOOK', 'Assign Doctor to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(1591, 8, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(1592, 8, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(1593, 8, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(1594, 8, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(1595, 8, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(1596, 8, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(1597, 8, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(1598, 8, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(1599, 8, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-13'),
+(1600, 8, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-13'),
+(1601, 8, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-13'),
+(1602, 8, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(1603, 8, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-13');
+INSERT INTO `clinic_account_owner_history` (`actid`, `account_id`, `page`, `account_activity`, `date_created`) VALUES
+(1604, 8, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-13'),
+(1605, 8, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-13'),
+(1606, 8, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(1607, 8, 'BILLING', 'Navigate to BILLING', '2025-04-13'),
+(1608, 8, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-13'),
+(1609, 8, 'STAFFLOGS', 'Navigate to STAFFLOGS', '2025-04-13'),
+(1610, 8, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-13'),
+(1611, 1, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(1612, 1, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-13'),
+(1613, 1, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-13'),
+(1614, 8, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(1615, 8, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-13'),
+(1616, 8, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-13'),
+(1617, 8, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(1618, 8, 'REPORTS', 'Navigate to REPORTS', '2025-04-13'),
+(1619, 1, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(1620, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1621, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1622, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1623, 1, 'PATIENT', 'Delete Patient on PATIENT', '2025-04-15'),
+(1624, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1625, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1626, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1627, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-15'),
+(1628, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1629, 1, 'PATIENT', 'Create Patient on PATIENT', '2025-04-15'),
+(1630, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1631, 1, 'BILLING', 'Navigate to BILLING', '2025-04-15'),
+(1632, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1633, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1634, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1635, 1, 'ACCOUNTS', 'Created New Account to ACCOUNTS', '2025-04-15'),
+(1636, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1637, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1638, 1, 'ACCOUNTS', 'Verified/Unverified Accounts to ACCOUNTS', '2025-04-15'),
+(1639, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1640, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1641, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1642, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1643, 1, 'ACCOUNTS', 'Created New Account to ACCOUNTS', '2025-04-15'),
+(1644, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1645, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1646, 1, 'ACCOUNTS', 'Verified/Unverified Accounts to ACCOUNTS', '2025-04-15'),
+(1647, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1648, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1649, 1, 'ACCOUNTS', 'Update Accounts to ACCOUNTS', '2025-04-15'),
+(1650, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1651, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1652, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1653, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1654, 1, 'ACCOUNTS', 'Verified/Unverified Accounts to ACCOUNTS', '2025-04-15'),
+(1655, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1656, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1657, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1658, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1659, 1, 'ACCOUNTS', 'Created New Account to ACCOUNTS', '2025-04-15'),
+(1660, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1661, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1662, 1, 'ACCOUNTS', 'Verified/Unverified Accounts to ACCOUNTS', '2025-04-15'),
+(1663, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1664, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1665, 5, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(1666, 5, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1667, 1, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(1668, 1, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(1669, 1, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(1670, 1, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(1671, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1672, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-15'),
+(1673, 1, 'SERVICE', 'Navigate to SERVICE', '2025-04-15'),
+(1674, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1675, 1, 'PATIENT', 'Updated Status Integration on PATIENT', '2025-04-15'),
+(1676, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1677, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1678, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-15'),
+(1679, 1, 'SERVICE', 'Navigate to SERVICE', '2025-04-15'),
+(1680, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-15'),
+(1681, 1, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(1682, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-15'),
+(1683, 1, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-15'),
+(1684, 1, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-15'),
+(1685, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1686, 1, 'BILLING', 'Navigate to BILLING', '2025-04-15'),
+(1687, 1, 'BILLING', 'Navigate to BILLING', '2025-04-15'),
+(1688, 1, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-15'),
+(1689, 1, 'MYACCOUNT', 'Navigate to MYACCOUNT', '2025-04-15'),
+(1690, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-15'),
+(1691, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1692, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1693, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1694, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1695, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1696, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1697, 1, 'ACCOUNTS', 'Update Accounts to ACCOUNTS', '2025-04-15'),
+(1698, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1699, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1700, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1701, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1702, 1, 'ACCOUNTS', 'Update Accounts to ACCOUNTS', '2025-04-15'),
+(1703, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1704, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1705, 1, 'ACCOUNTS', 'Created Service Role to ACCOUNTS', '2025-04-15'),
+(1706, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1707, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1708, 1, 'ACCOUNTS', 'Created Service Role to ACCOUNTS', '2025-04-15'),
+(1709, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1710, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1711, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1712, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1713, 1, 'ACCOUNTS', 'Update Accounts to ACCOUNTS', '2025-04-15'),
+(1714, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1715, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1716, 1, 'ACCOUNTS', 'Created Service Role to ACCOUNTS', '2025-04-15'),
+(1717, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1718, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1719, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-15'),
+(1720, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1721, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(1722, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1723, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1724, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(1725, 1, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-15'),
+(1726, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(1727, 1, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-15'),
+(1728, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(1729, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1730, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(1731, 1, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-15'),
+(1732, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(1733, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1734, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1735, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1736, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1737, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1738, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1739, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(1740, 1, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-15'),
+(1741, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-15'),
+(1742, 1, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(1743, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1744, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(1745, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1746, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1747, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1748, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1749, 1, 'ACCOUNTS', 'Update Accounts to ACCOUNTS', '2025-04-15'),
+(1750, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1751, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1752, 1, 'ACCOUNTS', 'Added Paygrade Accounts to ACCOUNTS', '2025-04-15'),
+(1753, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1754, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1755, 1, 'ACCOUNTS', 'Added Paygrade Accounts to ACCOUNTS', '2025-04-15'),
+(1756, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1757, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1758, 1, 'ACCOUNTS', 'Created Service Role to ACCOUNTS', '2025-04-15'),
+(1759, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1760, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1761, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-15'),
+(1762, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(1763, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(1764, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-15'),
+(1765, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1766, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1767, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1768, 1, 'PATIENT', 'Create Patient on PATIENT', '2025-04-22'),
+(1769, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1770, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1771, 1, 'PATIENT', 'Updated Status Integration on PATIENT', '2025-04-22'),
+(1772, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1773, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1774, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1775, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1776, 1, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(1777, 1, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(1778, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1779, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1780, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1781, 1, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1782, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(1783, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1784, 1, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1785, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1786, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1787, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1788, 1, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(1789, 1, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1790, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1791, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1792, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1793, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1794, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1795, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1796, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1797, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1798, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1799, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1800, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1801, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1802, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1803, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1804, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1805, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1806, 1, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1807, 1, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-22'),
+(1808, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(1809, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(1810, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1811, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1812, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(1813, 1, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-22'),
+(1814, 1, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-22'),
+(1815, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1816, 1, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(1817, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1818, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1819, 1, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(1820, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1821, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1822, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1823, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1824, 1, 'MYACCOUNT', 'Navigate to MYACCOUNT', '2025-04-22'),
+(1825, 1, 'MYACCOUNT', 'Navigate to MYACCOUNT', '2025-04-22'),
+(1826, 1, 'MYACCOUNT', 'Navigate to MYACCOUNT', '2025-04-22'),
+(1827, 1, 'MYACCOUNT', 'Navigate to MYACCOUNT', '2025-04-22'),
+(1828, 1, 'MYACCOUNT', 'Navigate to MYACCOUNT', '2025-04-22'),
+(1829, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1830, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1831, 1, 'ACCOUNTS', 'Update Accounts to ACCOUNTS', '2025-04-22'),
+(1832, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1833, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1834, 1, 'ACCOUNTS', 'Update Accounts to ACCOUNTS', '2025-04-22'),
+(1835, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1836, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1837, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1838, 1, 'MYACCOUNT', 'Navigate to MYACCOUNT', '2025-04-22'),
+(1839, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1840, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1841, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1842, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1843, 10, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1844, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1845, 10, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1846, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1847, 10, 'PATIENT', 'Create Patient on PATIENT', '2025-04-22'),
+(1848, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1849, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1850, 10, 'PATIENT', 'Updated Status Integration on PATIENT', '2025-04-22'),
+(1851, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1852, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1853, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1854, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1855, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1856, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1857, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1858, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(1859, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1860, 10, 'SERVICE', 'Created Service on SERVICE', '2025-04-22'),
+(1861, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1862, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1863, 10, 'SERVICE', 'Created Service on SERVICE', '2025-04-22'),
+(1864, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1865, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1866, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1867, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1868, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1869, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1870, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1871, 10, 'ACCOUNTS', 'Created New Account to ACCOUNTS', '2025-04-22'),
+(1872, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1873, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1874, 10, 'ACCOUNTS', 'Verified/Unverified Accounts to ACCOUNTS', '2025-04-22'),
+(1875, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1876, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1877, 10, 'ACCOUNTS', 'Added Paygrade Accounts to ACCOUNTS', '2025-04-22'),
+(1878, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1879, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1880, 10, 'ACCOUNTS', 'Created New Account to ACCOUNTS', '2025-04-22'),
+(1881, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1882, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1883, 10, 'ACCOUNTS', 'Added Paygrade Accounts to ACCOUNTS', '2025-04-22'),
+(1884, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1885, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1886, 10, 'ACCOUNTS', 'Created Service Role to ACCOUNTS', '2025-04-22'),
+(1887, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1888, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1889, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1890, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1891, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1892, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1893, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1894, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1895, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1896, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1897, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1898, 10, 'ACCOUNTS', 'Verified/Unverified Accounts to ACCOUNTS', '2025-04-22'),
+(1899, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1900, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1901, 10, 'ACCOUNTS', 'Created New Account to ACCOUNTS', '2025-04-22'),
+(1902, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1903, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1904, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1905, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1906, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1907, 10, 'ACCOUNTS', 'Added Paygrade Accounts to ACCOUNTS', '2025-04-22'),
+(1908, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1909, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1910, 10, 'ACCOUNTS', 'Added Paygrade Accounts to ACCOUNTS', '2025-04-22'),
+(1911, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1912, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1913, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1914, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1915, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1916, 10, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(1917, 10, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1918, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1919, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(1920, 10, 'INTEGRATION', 'Created New Integration to INTEGRATION', '2025-04-22'),
+(1921, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(1922, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(1923, 10, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1924, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1925, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1926, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1927, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(1928, 10, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-22'),
+(1929, 10, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-22'),
+(1930, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1931, 10, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(1932, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(1933, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1934, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1935, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1936, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(1937, 10, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-22'),
+(1938, 10, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-22'),
+(1939, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1940, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1941, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1942, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1943, 10, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(1944, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1945, 10, 'ACCOUNTS', 'Verified/Unverified Accounts to ACCOUNTS', '2025-04-22'),
+(1946, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1947, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1948, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(1949, 10, 'SUPPORT', 'Navigate to SUPPORT', '2025-04-22'),
+(1950, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1951, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1952, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1953, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(1954, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1955, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1956, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1957, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1958, 10, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1959, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1960, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1961, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1962, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1963, 10, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1964, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1965, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1966, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1967, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1968, 10, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-22'),
+(1969, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1970, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1971, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1972, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(1973, 10, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-22'),
+(1974, 10, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-22'),
+(1975, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1976, 10, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(1977, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(1978, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(1979, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1980, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(1981, 10, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-22'),
+(1982, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(1983, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(1984, 10, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(1985, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1986, 10, 'STAFFLOGS', 'Navigate to STAFFLOGS', '2025-04-22'),
+(1987, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1988, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1989, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(1990, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1991, 10, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(1992, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(1993, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1994, 10, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(1995, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(1996, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(1997, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(1998, 10, 'ACCOUNTS', 'Delete Accounts to ACCOUNTS', '2025-04-22'),
+(1999, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(2000, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(2001, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2002, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(2003, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2004, 10, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(2005, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(2006, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2007, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2008, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2009, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2010, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(2011, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2012, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2013, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2014, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2015, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(2016, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(2017, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2018, 10, 'PATIENT', 'Delete Patient on PATIENT', '2025-04-22'),
+(2019, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2020, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2021, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(2022, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2023, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(2024, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2025, 10, 'SUPPORT', 'Navigate to SUPPORT', '2025-04-22'),
+(2026, 10, 'SUPPORT', 'Navigate to SUPPORT', '2025-04-22'),
+(2027, 10, 'SUPPORT', 'Navigate to SUPPORT', '2025-04-22'),
+(2028, 10, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(2029, 10, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(2030, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(2031, 10, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(2032, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(2033, 10, 'SUPPORT', 'Navigate to SUPPORT', '2025-04-22'),
+(2034, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(2035, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(2036, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(2037, 10, 'INTEGRATION', 'Deleted Integration on INTEGRATION', '2025-04-22'),
+(2038, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(2039, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(2040, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2041, 10, 'PATIENT', 'Create Patient on PATIENT', '2025-04-22'),
+(2042, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2043, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2044, 10, 'PATIENT', 'Updated Status Integration on PATIENT', '2025-04-22'),
+(2045, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2046, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2047, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2048, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2049, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2050, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(2051, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(2052, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2053, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(2054, 10, 'INTEGRATION', 'Created New Integration to INTEGRATION', '2025-04-22'),
+(2055, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(2056, 10, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(2057, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2058, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(2059, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2060, 10, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(2061, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2062, 10, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(2063, 10, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(2064, 10, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(2065, 10, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(2066, 10, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2067, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2068, 10, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-22'),
+(2069, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2070, 10, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-22'),
+(2071, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2072, 10, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-22'),
+(2073, 10, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2074, 10, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-22'),
+(2075, 10, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-22'),
+(2076, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(2077, 1, 'MYACCOUNT', 'Navigate to MYACCOUNT', '2025-04-22'),
+(2078, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(2079, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(2080, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2081, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2082, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2083, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2084, 1, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-22'),
+(2085, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2086, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2087, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2088, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2089, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(2090, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2091, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(2092, 1, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(2093, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(2094, 1, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-22'),
+(2095, 1, 'MYACCOUNT', 'Navigate to MYACCOUNT', '2025-04-22'),
+(2096, 1, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-22'),
+(2097, 1, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-22'),
+(2098, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(2099, 1, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-22'),
+(2100, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(2101, 1, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(2102, 1, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(2103, 1, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(2104, 1, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(2105, 1, 'SUPPORT', 'Navigate to SUPPORT', '2025-04-22'),
+(2106, 1, 'SUPPORTSPECIFICRESPONSE', 'Navigate to SUPPORTSPECIFICRESPONSE', '2025-04-22'),
+(2107, 1, 'SUPPORTSPECIFICRESPONSE', 'Navigate to SUPPORTSPECIFICRESPONSE', '2025-04-22'),
+(2108, 1, 'SUPPORT', 'Navigate to SUPPORT', '2025-04-22'),
+(2109, 1, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(2110, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2111, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-22'),
+(2112, 1, 'SERVICE', 'Navigate to SERVICE', '2025-04-22'),
+(2113, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-22'),
+(2114, 1, 'INQUIRY', 'Navigate to INQUIRY', '2025-04-22'),
+(2115, 1, 'ANNOUNCEMENT', 'Navigate to ANNOUNCEMENT', '2025-04-22'),
+(2116, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(2117, 1, 'BILLING', 'Navigate to BILLING', '2025-04-22'),
+(2118, 1, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(2119, 1, 'SUPPORT', 'Navigate to SUPPORT', '2025-04-22'),
+(2120, 1, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(2121, 1, 'SUPPORT', 'Navigate to SUPPORT', '2025-04-22'),
+(2122, 1, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-22'),
+(2123, 1, 'MYACCOUNT', 'Navigate to MYACCOUNT', '2025-04-22'),
+(2124, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(2125, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(2126, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(2127, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(2128, 1, 'ACCOUNTS', 'Update Accounts to ACCOUNTS', '2025-04-22'),
+(2129, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(2130, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-22'),
+(2131, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(2132, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2133, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2134, 1, 'SPECIFICACCOUNTBOOK', 'Assign Doctor to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2135, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2136, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2137, 1, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-22'),
+(2138, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2139, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(2140, 1, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(2141, 1, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(2142, 1, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(2143, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2144, 1, 'ACCOUNTS', 'Verified/Unverified Accounts to ACCOUNTS', '2025-04-23'),
+(2145, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2146, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2147, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2148, 1, 'ACCOUNTS', 'Update Accounts to ACCOUNTS', '2025-04-23'),
+(2149, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2150, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2151, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2152, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2153, 1, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(2154, 1, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(2155, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2156, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2157, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2158, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2159, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2160, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2161, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2162, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2163, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2164, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2165, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2166, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2167, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2168, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2169, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2170, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-23'),
+(2171, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2172, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2173, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2174, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-23'),
+(2175, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2176, 1, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(2177, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2178, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2179, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2180, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2181, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2182, 1, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(2183, 1, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-23'),
+(2184, 1, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(2185, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2186, 1, 'PATIENT', 'Create Patient on PATIENT', '2025-04-23'),
+(2187, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2188, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2189, 1, 'MYACCOUNT', 'Navigate to MYACCOUNT', '2025-04-23'),
+(2190, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2191, 1, 'PATIENT', 'Create Patient on PATIENT', '2025-04-23'),
+(2192, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2193, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2194, 1, 'PATIENT', 'Create Patient on PATIENT', '2025-04-23'),
+(2195, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2196, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2197, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2198, 1, 'PATIENT', 'Create Patient on PATIENT', '2025-04-23'),
+(2199, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2200, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2201, 1, 'PATIENT', 'Create Patient on PATIENT', '2025-04-23'),
+(2202, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2203, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2204, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-23'),
+(2205, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2206, 1, 'MYACCOUNT', 'Navigate to MYACCOUNT', '2025-04-23'),
+(2207, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2208, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2209, 1, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(2210, 1, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(2211, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2212, 1, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(2213, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2214, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2215, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2216, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2217, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2218, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2219, 1, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(2220, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2221, 1, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(2222, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2223, 1, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(2224, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2225, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2226, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2227, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2228, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2229, 1, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(2230, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2231, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2232, 1, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(2233, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2234, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-23'),
+(2235, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2236, 1, 'PATIENT', 'Delete Patient on PATIENT', '2025-04-23'),
+(2237, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2238, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2239, 1, 'PATIENT', 'Delete Patient on PATIENT', '2025-04-23'),
+(2240, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2241, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2242, 1, 'PATIENT', 'Delete Patient on PATIENT', '2025-04-23'),
+(2243, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2244, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2245, 1, 'PATIENT', 'Delete Patient on PATIENT', '2025-04-23'),
+(2246, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2247, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2248, 1, 'PATIENT', 'Delete Patient on PATIENT', '2025-04-23'),
+(2249, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2250, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2251, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-23'),
+(2252, 1, 'SERVICE', 'Navigate to SERVICE', '2025-04-23'),
+(2253, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-23'),
+(2254, 1, 'BILLING', 'Navigate to BILLING', '2025-04-23'),
+(2255, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2256, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2257, 1, 'ACCOUNTS', 'Update Accounts to ACCOUNTS', '2025-04-23'),
+(2258, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2259, 1, 'ACCOUNTS', 'Navigate to ACCOUNTS', '2025-04-23'),
+(2260, 1, 'REPORTS', 'Navigate to REPORTS', '2025-04-23'),
+(2261, 1, 'SERVICE', 'Navigate to SERVICE', '2025-04-23'),
+(2262, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(2263, 1, 'SCHEDULING', 'Navigate to SCHEDULING', '2025-04-23'),
+(2264, 1, 'SERVICE', 'Navigate to SERVICE', '2025-04-23'),
+(2265, 1, 'INTEGRATION', 'Navigate to INTEGRATION', '2025-04-23'),
+(2266, 1, 'BILLING', 'Navigate to BILLING', '2025-04-23'),
+(2267, 1, 'PATIENT', 'Navigate to PATIENT', '2025-04-23');
 
 -- --------------------------------------------------------
 
@@ -2243,7 +2981,81 @@ INSERT INTO `clinic_account_patient_history` (`actid`, `account_id`, `client_id`
 (223, 1, 1, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-13'),
 (224, 1, 1, 'HOME', 'Navigate to HOME', '2025-04-13'),
 (225, 1, 1, 'HISTORY', 'Navigate to HISTORY', '2025-04-13'),
-(226, 1, 1, 'HISTORY', 'Navigate to HISTORY', '2025-04-13');
+(226, 1, 1, 'HISTORY', 'Navigate to HISTORY', '2025-04-13'),
+(227, 8, 6, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(228, 8, 6, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(229, 8, 6, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(230, 8, 6, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(231, 8, 6, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(232, 8, 6, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(233, 8, 6, 'HISTORY', 'Navigate to HISTORY', '2025-04-13'),
+(234, 8, 6, 'HISTORY', 'Navigate to HISTORY', '2025-04-13'),
+(235, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(236, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-15'),
+(237, 1, 5, 'BOOK', 'Navigate to BOOK', '2025-04-15'),
+(238, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-15'),
+(239, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(240, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-15'),
+(241, 1, 5, 'BOOK', 'Navigate to BOOK', '2025-04-15'),
+(242, 1, 5, 'BOOK', 'Navigate to BOOK', '2025-04-15'),
+(243, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-15'),
+(244, 1, 5, 'BOOK', 'Navigate to BOOK', '2025-04-15'),
+(245, 1, 5, 'BOOK', 'Navigate to BOOK', '2025-04-15'),
+(246, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-15'),
+(247, 1, 8, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(248, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(249, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(250, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(251, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(252, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(253, 1, 5, 'BOOK', 'Navigate to BOOK', '2025-04-22'),
+(254, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(255, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(256, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(257, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(258, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(259, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(260, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(261, 1, 5, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-22'),
+(262, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(263, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(264, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(265, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(266, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(267, 1, 5, 'BOOK', 'Navigate to BOOK', '2025-04-22'),
+(268, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(269, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(270, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(271, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(272, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(273, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(274, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(275, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(276, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(277, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(278, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(279, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(280, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-22'),
+(281, 1, 5, 'BOOK', 'Navigate to BOOK', '2025-04-22'),
+(282, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(283, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(284, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-23'),
+(285, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(286, 1, 5, 'BOOK', 'Navigate to BOOK', '2025-04-23'),
+(287, 1, 5, 'BOOK', 'Navigate to BOOK', '2025-04-23'),
+(288, 1, 5, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(289, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-23'),
+(290, 1, 5, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(291, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-23'),
+(292, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-23'),
+(293, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-23'),
+(294, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-23'),
+(295, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-23'),
+(296, 1, 5, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(297, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-23'),
+(298, 1, 5, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(299, 1, 5, 'HISTORY', 'Navigate to HISTORY', '2025-04-23'),
+(300, 1, 5, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23');
 
 -- --------------------------------------------------------
 
@@ -2628,7 +3440,189 @@ INSERT INTO `clinic_account_staff_history` (`actid`, `account_id`, `user_id`, `p
 (453, 1, 2, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
 (454, 1, 2, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
 (455, 1, 2, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-13'),
-(456, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-13');
+(456, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(457, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(458, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(459, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(460, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(461, 8, 4, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(462, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(463, 8, 4, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(464, 8, 5, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(465, 8, 5, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(466, 8, 5, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(467, 8, 5, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(468, 8, 5, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(469, 8, 5, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(470, 8, 5, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(471, 8, 5, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(472, 8, 4, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(473, 8, 5, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(474, 8, 5, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(475, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(476, 8, 5, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(477, 8, 5, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(478, 8, 5, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(479, 8, 5, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(480, 8, 5, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(481, 8, 5, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(482, 8, 5, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(483, 8, 5, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(484, 8, 5, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(485, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(486, 8, 4, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(487, 8, 4, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(488, 8, 4, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-13'),
+(489, 8, 4, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-13'),
+(490, 8, 4, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-13'),
+(491, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(492, 8, 4, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(493, 8, 4, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-13'),
+(494, 8, 4, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-13'),
+(495, 8, 4, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-13'),
+(496, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(497, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(498, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(499, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(500, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(501, 8, 4, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(502, 8, 4, 'HOME', 'Navigate to HOME', '2025-04-13'),
+(503, 8, 4, 'PATIENT', 'Navigate to PATIENT', '2025-04-13'),
+(504, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(505, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(506, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(507, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(508, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(509, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(510, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(511, 1, 6, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(512, 1, 6, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(513, 1, 7, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(514, 1, 8, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(515, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(516, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(517, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(518, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(519, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(520, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(521, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(522, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-15'),
+(523, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(524, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(525, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(526, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(527, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(528, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-15'),
+(529, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(530, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(531, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(532, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(533, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(534, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(535, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(536, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(537, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(538, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(539, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-15'),
+(540, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(541, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(542, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(543, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(544, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(545, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(546, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(547, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(548, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(549, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(550, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(551, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(552, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(553, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(554, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(555, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-15'),
+(556, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(557, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(558, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-15'),
+(559, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-15'),
+(560, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(561, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(562, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(563, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(564, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(565, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(566, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(567, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(568, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(569, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(570, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(571, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(572, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(573, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(574, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(575, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(576, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(577, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(578, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(579, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(580, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(581, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(582, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(583, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(584, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-22'),
+(585, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(586, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(587, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-22'),
+(588, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(589, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(590, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-22'),
+(591, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(592, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(593, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(594, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(595, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(596, 1, 2, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(597, 1, 2, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(598, 1, 2, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-22'),
+(599, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(600, 1, 2, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(601, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(602, 1, 2, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(603, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-22'),
+(604, 1, 2, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(605, 1, 2, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(606, 1, 2, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-22'),
+(607, 1, 2, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(608, 1, 2, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-22'),
+(609, 1, 2, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-22'),
+(610, 1, 2, 'PATIENT', 'Navigate to PATIENT', '2025-04-22'),
+(611, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(612, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(613, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(614, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(615, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(616, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(617, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(618, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(619, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(620, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(621, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(622, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(623, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(624, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(625, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(626, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(627, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(628, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(629, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(630, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(631, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(632, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(633, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(634, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(635, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(636, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(637, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(638, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-23');
 
 -- --------------------------------------------------------
 
@@ -2648,7 +3642,8 @@ CREATE TABLE `clinic_account_theme_header` (
 --
 
 INSERT INTO `clinic_account_theme_header` (`tid`, `account_id`, `themeHeader`, `date_created`) VALUES
-(1, 1, 'bg-danger header-text-light', '2025-03-28');
+(1, 1, 'bg-danger header-text-light', '2025-03-28'),
+(2, 8, 'bg-mean-fruit header-text-dark', '2025-04-13');
 
 -- --------------------------------------------------------
 
@@ -2668,7 +3663,8 @@ CREATE TABLE `clinic_account_theme_sidebar` (
 --
 
 INSERT INTO `clinic_account_theme_sidebar` (`stid`, `account_id`, `theme`, `date_create`) VALUES
-(1, 1, 'bg-primary sidebar-text-light', '2025-03-28');
+(1, 1, 'bg-primary sidebar-text-light', '2025-03-28'),
+(2, 8, 'bg-mean-fruit sidebar-text-dark', '2025-04-13');
 
 -- --------------------------------------------------------
 
@@ -2715,7 +3711,7 @@ CREATE TABLE `clinic_admin` (
 --
 
 INSERT INTO `clinic_admin` (`admin_id`, `fullname`, `email`, `phone`, `password`, `unhashed`, `status`, `date_created`) VALUES
-(1, 'Erwin Tagulao', 'gmfacistol@outlook.com', '0916653189', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'VERIFIED', '2025-03-30');
+(1, 'Erwin Tagulao', 'erwin@gmail.com', '0916653189', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'VERIFIED', '2025-03-30');
 
 -- --------------------------------------------------------
 
@@ -2749,11 +3745,8 @@ CREATE TABLE `clinic_business_account` (
 
 INSERT INTO `clinic_business_account` (`account_id`, `business_name`, `email`, `phone`, `region`, `province`, `city`, `barangay`, `street`, `password`, `unhashed`, `business_ownership`, `business_cert`, `business_tin`, `status`, `code`, `date_created`) VALUES
 (1, 'FamVill', 'familyvilleofficial@gmail.com', '09171439388', 'National Capital Region (NCR)', 'Ncr, Second District', 'Quezon City', 'Santa Lucia', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'Sole Proprietor', 'uploads/1742302421_1742035607_BSIS4E-GROUP3_ACM_FORMAT.docx', '11111111', 'SUBSCRIBED', 6690, '2025-03-18'),
-(3, 'FamCrisis', 'revcoreitsolutions@gmail.com', '9531599179', 'Autonomous Region in Muslim Mindanao (ARMM)', 'Basilan', 'Tabuan-lasa', 'Saluping', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '21232f297a57a5a743894a0e4a801fc3', 'admin', NULL, NULL, NULL, 'CONFIRMED', 7293, '2025-04-04'),
-(4, 'TESTSHIT', 'shit@gmail.com', '091666666690', 'National Capital Region (NCR)', 'Ncr, Fourth District', 'City Of Muntinlupa', 'Bayanan', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '098f6bcd4621d373cade4e832627b4f6', 'test', NULL, NULL, NULL, 'CONFIRMED', 8425, '2025-04-05'),
-(5, 'SHITZU', 'gmfacistol@outlook.com', '09171439377', 'National Capital Region (NCR)', 'Ncr, Second District', 'City Of San Juan', 'Santa Lucia', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'Sole Proprietor', 'uploads/1744524153_Revisions.docx', '11111111', 'SUBSCRIBED', 8407, '2025-04-13'),
-(6, 'REACT', 'reactgaming012@gmail.com', '0917141010', 'Region V (Bicol Region)', 'Catanduanes', 'Panganiban', 'San Nicolas (Pob.)', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'Partnership', 'uploads/1744531194_new concerns.docx', '11111111', 'SUBSCRIBED', 9914, '2025-04-13'),
-(7, 'AMANAMIN', 'tricore012@gmail.com', '09531599189', 'Region XIII (Caraga)', 'Agusan Del Norte', 'Remedios T. Romualdez', 'Balangbalang', '10 U206 Tarraville Subdivision, Santa Lucia, Novaliches', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'Sole Proprietor', 'uploads/1744537722_new concerns.docx', '11111111', 'VERIFIED', 8370, '2025-04-13');
+(10, 'Arron CO.', 'jhayarronjoaquin02@gmail.com', '09786756241', 'Region IV-A (CALABARZON)', 'Cavite', 'Mendez (Mendez-nuñez)', 'Banayad', 'garden', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'Sole Proprietor', 'uploads/1745328603_RobloxScreenShot20240726_203819092.png', '1234', 'SUBSCRIBED', 9647, '2025-04-22'),
+(11, 'kushi', 'kushihsimoto02@gmail.com', '09768412345', 'Autonomous Region in Muslim Mindanao (ARMM)', 'Basilan', 'Tuburan', 'Sinulatan', 'qwes', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'Sole Proprietor', 'uploads/1745342332_RobloxScreenShot20240729_105709596.png', '4321', 'VERIFIED', 8807, '2025-04-23');
 
 -- --------------------------------------------------------
 
@@ -2775,7 +3768,9 @@ CREATE TABLE `clinic_business_account_announcement` (
 --
 
 INSERT INTO `clinic_business_account_announcement` (`announcement_id`, `account_id`, `announcement_title`, `announcement_content`, `status`, `date_created`) VALUES
-(1, 1, 'TEST', 'TEST', 'ACTIVE', '2025-03-29');
+(1, 1, 'holy week', 'TEST', 'ACTIVE', '2025-03-29'),
+(2, 8, 'test', 'test', 'IN-ACTIVE', '2025-04-13'),
+(3, 8, 'nice', 'nice', 'ACTIVE', '2025-04-13');
 
 -- --------------------------------------------------------
 
@@ -2824,7 +3819,17 @@ INSERT INTO `clinic_business_account_appointment` (`aid`, `account_id`, `pid`, `
 (18, 1, '250413-69355', 1, '2025-04-13', 0, 'Body Parts 1', '2 ', 'TEST', 'MALE', '2025-04-13', 'PAYED CONFIRM', 'WEB', '2025-04-13'),
 (19, 1, '250413-79330', 1, '2025-04-13', 0, 'Body Parts 2', '3 ', 'test', 'MALE', '2025-04-15', 'PAYED CONFIRM', 'WEB', '2025-04-13'),
 (20, 1, '250413-98974', 3, '2025-04-13', 0, 'Gerald Mico 1', '2 ', 'TREST', 'MALE', '2025-04-13', 'PAYED PENDING', 'WEB', '2025-04-13'),
-(21, 1, '250413-94902', 3, '2025-04-13', 0, 'Gerald Mico 2', '2 ', 'test', 'MALE', '2025-04-14', 'BOOKED', 'WEB', '2025-04-13');
+(21, 1, '250413-94902', 3, '2025-04-13', 0, 'Gerald Mico 2', '2 ', 'test', 'MALE', '2025-04-14', 'BOOKED', 'WEB', '2025-04-13'),
+(22, 8, '250413-76737', 6, '2025-04-13', 0, 'nora', '7 ', 'test', 'MALE', '2025-04-13', 'PAYED PENDING', 'WEB', '2025-04-13'),
+(23, 8, '250413-86199', 6, '2025-04-10', 0, 'nnn', '7 ', 'tewst', 'MALE', '2025-04-14', 'CONFIRMED', 'WEB', '2025-04-13'),
+(24, 8, '250413-92446', 6, '2025-04-01', 0, 'erib', '7 ', 'test', 'FEMALE', '2025-04-13', 'PAYED CONFIRM', 'WEB', '2025-04-13'),
+(25, 1, '250415-70272', 5, '2025-04-15', 0, 'eee', '2 ', 'teest', 'MALE', '2025-04-16', 'BOOKED', 'WEB', '2025-04-15'),
+(26, 1, '250415-96024', 5, '2025-04-25', 0, 'www', '2 ', 'test', 'MALE', '2025-04-16', 'BOOKED', 'WEB', '2025-04-15'),
+(27, 10, '250422-97028', 10, '2025-03-31', 0, 'nora', '8 ', 'test', 'MALE', '2025-04-22', 'PAYED CONFIRM', 'WEB', '2025-04-22'),
+(28, 10, '250422-91534', 11, '2025-03-31', 0, 'arrib daughter', '8 ', 'test', 'FEMALE', '2025-04-22', 'PAYED PENDING', 'WEB', '2025-04-22'),
+(29, 1, '250422-79707', 9, '2025-03-31', 0, 'son', '2 ', 'test', 'MALE', '2025-04-22', 'PAYED CONFIRM', 'WEB', '2025-04-22'),
+(30, 1, '250422-85485', 5, '2025-04-06', 0, 'aron1son', '2 ', 'test', 'MALE', '2025-04-23', 'CONFIRMED', 'WEB', '2025-04-22'),
+(31, 1, '250422-68443', 5, '2025-04-06', 0, 'aron1son', '2 ', 'test', 'MALE', '2025-04-23', 'BOOKED', 'WEB', '2025-04-22');
 
 -- --------------------------------------------------------
 
@@ -2849,7 +3854,8 @@ CREATE TABLE `clinic_business_account_appointment_follow_up` (
 
 INSERT INTO `clinic_business_account_appointment_follow_up` (`fid`, `aid`, `account_id`, `doctor_id`, `schedule_date`, `diagnosis`, `status`, `date_created`) VALUES
 (1, 6, 1, 2, '2025-03-30', 'jUST KIDDING', 'CONFIRMED', '2025-03-29'),
-(2, 6, 1, 2, '2025-08-28', 'really kidding', 'CANCELLED', '2025-03-30');
+(2, 6, 1, 2, '2025-08-28', 'really kidding', 'CANCELLED', '2025-03-30'),
+(3, 24, 8, 4, '2025-04-22', NULL, 'BOOKED', '2025-04-13');
 
 -- --------------------------------------------------------
 
@@ -2872,7 +3878,8 @@ CREATE TABLE `clinic_business_account_inquiry` (
 --
 
 INSERT INTO `clinic_business_account_inquiry` (`bid`, `account_id`, `name`, `email`, `subject`, `message`, `date_created`) VALUES
-(1, 1, 'Gerald Mico', 'gmfacistol@outlook.com', 'PRICING', 'TEST', '2025-04-04');
+(1, 1, 'Gerald Mico', 'gmfacistol@outlook.com', 'PRICING', 'TEST', '2025-04-04'),
+(2, 8, 'test', 'test@gmail.com', 'admin', 'asdadfaf', '2025-04-13');
 
 -- --------------------------------------------------------
 
@@ -2900,8 +3907,12 @@ CREATE TABLE `clinic_business_account_patient` (
 
 INSERT INTO `clinic_business_account_patient` (`client_id`, `account_id`, `fullname`, `username`, `email`, `phone`, `password`, `unhashed`, `status`, `code`, `date_created`) VALUES
 (1, 1, 'Jerwin Tagulao', 'Jerwin012', 'jerwin@outlook.com', '09531599179', '098f6bcd4621d373cade4e832627b4f6', 'test', 'VERIFIED', 859679, '2025-03-18'),
-(3, 1, 'Gerald Mico', 'gmfacistol@outlook.com', 'gmfacistol@outlook.com', '09171439388', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'VERIFIED', 860276, '2025-03-29'),
-(5, 1, 'Arron Test', 'Aron1', 'test@gmail.com', '0916653178', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'VERIFIED', 998393, '2025-03-30');
+(5, 1, 'Arron Test', 'Aron1', 'test@gmail.com', '0916653178', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'VERIFIED', 998393, '2025-03-30'),
+(6, 8, 'Jhay Arron', 'jhay', 'jhay@gmail.com', '09897682312', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'VERIFIED', 846751, '2025-04-13'),
+(7, 8, 'joshua', 'jjosh', 'josh@gmail.com', '092387562389746127846128', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'UNVERIFIED', 928772, '2025-04-15'),
+(8, 1, 'err', 'err', 'err@gmail.com', '09128974612398763875632', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'VERIFIED', 688125, '2025-04-15'),
+(9, 1, 'rown jhay', 'rown', 'rown@gmail.com', '09675642314', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'VERIFIED', 896876, '2025-04-22'),
+(11, 10, 'ARRIB', 'arrib', 'arrib@gmail.com', '0978676421', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'VERIFIED', 730436, '2025-04-22');
 
 -- --------------------------------------------------------
 
@@ -2924,7 +3935,9 @@ CREATE TABLE `clinic_business_account_paymentintegration` (
 --
 
 INSERT INTO `clinic_business_account_paymentintegration` (`pid`, `account_id`, `public_key`, `secret_key`, `status`, `mode`, `date_created`) VALUES
-(1, 1, 'pk_test_9srNwze4WeVdFhYzBdzDTN6W', 'sk_test_w2jX6orfaJGqCeDMXsHqA2SD', 'Active', 'Testing', '2025-03-18');
+(1, 1, 'pk_test_9srNwze4WeVdFhYzBdzDTN6W', 'sk_test_w2jX6orfaJGqCeDMXsHqA2SD', 'Active', 'Testing', '2025-03-18'),
+(3, 8, 'pk_test_9srNwze4WeVdFhYzBdzDTN6W', 'sk_test_w2jX6orfaJGqCeDMXsHqA2SD', 'Active', 'Testing', '2025-04-13'),
+(5, 10, 'pk_test_9srNwze4WeVdFhYzBdzDTN6W', 'sk_test_w2jX6orfaJGqCeDMXsHqA2SD', 'Active', 'Testing', '2025-04-22');
 
 -- --------------------------------------------------------
 
@@ -2950,9 +3963,11 @@ CREATE TABLE `clinic_business_account_subscription` (
 
 INSERT INTO `clinic_business_account_subscription` (`subs_id`, `account_id`, `paymethod`, `trans_id`, `email`, `code`, `account_type`, `status`, `date_created`) VALUES
 (1, 1, 'grabpay', 'src_RsZmDqiXnMwCvs4zKvWnrZgw', 'familyvilleofficial@gmail.com', '7056', 3, 'PAYED', '2025-03-18'),
-(2, 1, 'gcash', 'src_ZAHTaMrcZHrpowJMGnQPaQPN', 'familyvilleofficial@gmail.com', '7700', 3, 'PENDING', '2025-03-28'),
+(2, 1, 'gcash', 'src_ZAHTaMrcZHrpowJMGnQPaQPN', 'familyvilleofficial@gmail.com', '7700', 3, 'PENDING', '2025-03-20'),
 (3, 5, 'gcash', 'src_ZcgtM2gkY31DiPvgfCYiV4U9', 'gmfacistol@outlook.com', '7125', 2, 'PAYED', '2025-04-13'),
-(4, 6, 'gcash', 'src_biUHXNc1Yx381sELhtTZcriF', 'reactgaming012@gmail.com', '7422', 3, 'PAYED', '2025-04-13');
+(4, 6, 'gcash', 'src_biUHXNc1Yx381sELhtTZcriF', 'reactgaming012@gmail.com', '7422', 3, 'PAYED', '2025-04-13'),
+(5, 8, 'gcash', 'src_dS8i8dnaDy9mbmAbwHMw71TU', 'jhayarronjoaquin02@gmail.com', '7875', 1, 'PAYED', '2025-04-13'),
+(6, 10, 'gcash', 'src_zKbrBtDmvnC2AtvRyGK25BjC', 'jhayarronjoaquin02@gmail.com', '9591', 3, 'PAYED', '2025-04-22');
 
 -- --------------------------------------------------------
 
@@ -2978,7 +3993,9 @@ INSERT INTO `clinic_business_appointment_feedback` (`feedid`, `account_id`, `cli
 (1, 1, 1, '250318-81881 ', '3', 'NOT SO GOOD', '2025-03-29'),
 (2, 1, 3, '250329-73125 ', '5', 'baho tlaga nang hininga nung doctor', '2025-03-30'),
 (3, 1, 1, '250318-81881', '2', 'TEST', '2025-04-13'),
-(4, 1, 1, '250328-83764', '2', 'test', '2025-04-13');
+(4, 1, 1, '250328-83764', '2', 'test', '2025-04-13'),
+(5, 8, 6, '250413-92446', '3', 'nice', '2025-04-13'),
+(6, 1, 5, '250422-85485', '5', 'good service', '2025-04-22');
 
 -- --------------------------------------------------------
 
@@ -3014,7 +4031,14 @@ INSERT INTO `clinic_business_assigned_doctor_appointment` (`docapt`, `account_id
 (12, 1, 17, 2, NULL, '2025-04-13'),
 (13, 1, 18, 2, NULL, '2025-04-13'),
 (14, 1, 19, 2, NULL, '2025-04-13'),
-(15, 1, 20, 2, NULL, '2025-04-13');
+(15, 1, 20, 2, NULL, '2025-04-13'),
+(16, 8, 22, 4, NULL, '2025-04-13'),
+(17, 8, 23, 4, NULL, '2025-04-13'),
+(18, 8, 24, 4, 'sipon', '2025-04-13'),
+(19, 10, 27, 10, NULL, '2025-04-22'),
+(20, 10, 28, 10, NULL, '2025-04-22'),
+(21, 1, 29, 2, NULL, '2025-04-22'),
+(22, 1, 30, 2, NULL, '2025-04-22');
 
 -- --------------------------------------------------------
 
@@ -3081,7 +4105,14 @@ INSERT INTO `clinic_business_my_appointment_payment` (`payid`, `account_id`, `ai
 (18, 1, 19, 1, 'cash_payment', '0', '0', '9569', 'jerwin@outlook.com', '2025-04-13'),
 (19, 1, 15, 1, 'gcash', 'src_PKg1swXNqKs5kJWMfkBdvHTL', 'https://test-sources.paymongo.com/sources?id=src_y7nU73Hey5VP3umVHPvMG9r2', '8549', 'jerwin@outlook.com', '2025-04-13'),
 (20, 1, 20, 3, 'gcash', 'src_orbX9A6TzqajY5WVuY8PJQZu', 'https://test-sources.paymongo.com/sources?id=src_orbX9A6TzqajY5WVuY8PJQZu', '9160', 'gmfacistol@outlook.com', '2025-04-13'),
-(21, 1, 20, 3, 'gcash', 'src_orbX9A6TzqajY5WVuY8PJQZu', 'https://test-sources.paymongo.com/sources?id=src_orbX9A6TzqajY5WVuY8PJQZu', '9160', 'gmfacistol@outlook.com', '2025-04-13');
+(21, 1, 20, 3, 'gcash', 'src_orbX9A6TzqajY5WVuY8PJQZu', 'https://test-sources.paymongo.com/sources?id=src_orbX9A6TzqajY5WVuY8PJQZu', '9160', 'gmfacistol@outlook.com', '2025-04-13'),
+(22, 8, 22, 6, 'gcash', 'src_um7vDiTjhQ5NyXKEWZyqyMFV', 'https://test-sources.paymongo.com/sources?id=src_um7vDiTjhQ5NyXKEWZyqyMFV', '9805', 'jhay@gmail.com', '2025-04-13'),
+(23, 8, 24, 6, 'cash_payment', '0', '0', '7245', 'jhay@gmail.com', '2025-04-13'),
+(24, 10, 27, 10, 'cash_payment', '0', '0', '7704', 'jhayarron@gmail.com', '2025-04-22'),
+(25, 10, 28, 11, 'gcash', 'src_K4deAYKeJAaKjiUP7fvwyWcQ', 'https://test-sources.paymongo.com/sources?id=src_K4deAYKeJAaKjiUP7fvwyWcQ', '7093', 'arrib@gmail.com', '2025-04-22'),
+(26, 1, 29, 9, 'cash_payment', '0', '0', '8216', 'rown@gmail.com', '2025-04-22'),
+(27, 1, 29, 9, 'gcash', 'src_Q68phRpZP8skm8NPv51M6p1x', 'https://test-sources.paymongo.com/sources?id=src_Q68phRpZP8skm8NPv51M6p1x', '6995', 'rown@gmail.com', '2025-04-22'),
+(28, 1, 29, 9, 'cash_payment', '0', '0', '9485', 'rown@gmail.com', '2025-04-22');
 
 -- --------------------------------------------------------
 
@@ -3101,11 +4132,12 @@ CREATE TABLE `clinic_business_roles` (
 --
 
 INSERT INTO `clinic_business_roles` (`role_id`, `account_id`, `role_name`, `date_created`) VALUES
-(1, 1, 'Doctor', '2025-03-18'),
-(2, 1, 'Assistant Doctor', '2025-03-18'),
-(3, 1, 'Erwin', '2025-03-30'),
-(4, 5, 'DOCTOR', '2025-04-13'),
-(5, 5, 'ASSISTANT DOCTOR', '2025-04-13');
+(12, 1, 'DOCTOR', '2025-04-15'),
+(15, 1, 'ASSISTANT DOCTOR', '2025-04-15'),
+(16, 10, 'DOCTOR', '2025-04-22'),
+(18, 1, 'DOCTOR ASSISTANT', '2025-04-22'),
+(19, 1, 'dr', '2025-04-23'),
+(20, 1, 'dra', '2025-04-23');
 
 -- --------------------------------------------------------
 
@@ -3127,7 +4159,10 @@ CREATE TABLE `clinic_business_service` (
 INSERT INTO `clinic_business_service` (`bsid`, `account_id`, `service`, `date_created`) VALUES
 (2, 1, 'PEDIATRIC', '2025-03-18'),
 (3, 1, 'ORTHOPHEDIC', '2025-03-18'),
-(5, 1, 'ERWIN UPDATE', '2025-03-30');
+(5, 1, 'ERWIN UPDATE', '2025-03-30'),
+(7, 8, 'CHECKUP', '2025-04-13'),
+(8, 10, 'CHECKUP', '2025-04-22'),
+(9, 10, 'VACCINATION', '2025-04-22');
 
 -- --------------------------------------------------------
 
@@ -3148,7 +4183,13 @@ CREATE TABLE `clinic_business_service_account` (
 
 INSERT INTO `clinic_business_service_account` (`sid`, `account_id`, `role_id`, `date_created`) VALUES
 (2, 1, 1, '2025-03-28'),
-(5, 5, 4, '2025-04-13');
+(5, 5, 4, '2025-04-13'),
+(6, 8, 6, '2025-04-13'),
+(7, 1, 13, '2025-04-15'),
+(8, 1, 12, '2025-04-15'),
+(9, 1, 14, '2025-04-15'),
+(10, 1, 15, '2025-04-15'),
+(11, 10, 16, '2025-04-22');
 
 -- --------------------------------------------------------
 
@@ -3172,7 +4213,8 @@ CREATE TABLE `clinic_business_service_ticket` (
 
 INSERT INTO `clinic_business_service_ticket` (`ticketid`, `account_id`, `level`, `subject`, `concern`, `status`, `date_created`) VALUES
 (2, 1, 5, 'TEST', 'TEST', 'COMPLETED', '2025-03-30'),
-(3, 1, 4, 'test', 'test', 'SUBMITTED', '2025-03-30');
+(3, 1, 4, 'test', 'test', 'SUBMITTED', '2025-03-30'),
+(4, 10, 1, 'error', 'sira yung login', 'COMPLETED', '2025-04-22');
 
 -- --------------------------------------------------------
 
@@ -3195,7 +4237,8 @@ INSERT INTO `clinic_business_service_ticket_response` (`response_id`, `ticket_id
 (2, 3, 'CHECK\r\n'),
 (3, 3, 'SUPPORT TESTING CURRENTLY '),
 (4, 2, 'gago kaba pangalawang beses na yan'),
-(5, 2, 'Fuck you');
+(5, 2, 'Fuck you'),
+(6, 3, 'ok');
 
 -- --------------------------------------------------------
 
@@ -3221,8 +4264,15 @@ CREATE TABLE `clinic_bussiness_account_users` (
 --
 
 INSERT INTO `clinic_bussiness_account_users` (`user_id`, `account_id`, `fullname`, `email`, `phone`, `password`, `unhashed`, `role`, `status`, `date_created`) VALUES
-(2, 1, 'Gerald Mico', 'gmfacistol@outlook.com', '09171439388', '098f6bcd4621d373cade4e832627b4f6', 'test', 1, 'VERIFIED', '2025-03-28'),
-(3, 1, 'Erwin', 'erwin@gmail.com', '09888888888', '785f0b13d4daf8eee0d11195f58302a4', 'erwin', 3, 'VERIFIED', '2025-03-30');
+(2, 1, 'jer', 'jer@gmail.com', '09171439388', '21232f297a57a5a743894a0e4a801fc3', 'admin', 12, 'VERIFIED', '2025-03-28'),
+(3, 1, 'Erwin', 'erwin@gmail.com', '09888888888', '785f0b13d4daf8eee0d11195f58302a4', 'erwin', 18, 'VERIFIED', '2025-03-30'),
+(4, 8, 'VIR', 'vir@gmail.com', '09998787642', '21232f297a57a5a743894a0e4a801fc3', 'admin', 6, 'VERIFIED', '2025-04-13'),
+(5, 8, 'joaquin', 'joaquin@gmail.com', '09786452132', '21232f297a57a5a743894a0e4a801fc3', 'admin', 7, 'VERIFIED', '2025-04-13'),
+(6, 1, 'test', 'testing@gmail.com', '0988742124', '21232f297a57a5a743894a0e4a801fc3', 'admin', 8, 'VERIFIED', '2025-04-15'),
+(7, 1, 'docas', 'docas@gmail.com', '0987876421', '21232f297a57a5a743894a0e4a801fc3', 'admin', 9, 'VERIFIED', '2025-04-15'),
+(8, 1, 'doctors', 'doctors@gmail.com', '09786784212', '21232f297a57a5a743894a0e4a801fc3', 'admin', 11, 'VERIFIED', '2025-04-15'),
+(9, 10, 'vir', 'virhenrickmalate9@gmail.com', '09786731241', '21232f297a57a5a743894a0e4a801fc3', 'admin', 17, 'VERIFIED', '2025-04-22'),
+(10, 10, 'erwin tagulao', 'tagulaoerwin@gmail.com', '09786731523', '21232f297a57a5a743894a0e4a801fc3', 'admin', 16, 'VERIFIED', '2025-04-22');
 
 -- --------------------------------------------------------
 
@@ -3244,7 +4294,12 @@ CREATE TABLE `clinic_bussiness_account_users_paygrade` (
 
 INSERT INTO `clinic_bussiness_account_users_paygrade` (`paygradeid`, `user_id`, `account_id`, `paygrade`, `date_created`) VALUES
 (1, 2, 1, 600.00, '2025-03-28'),
-(2, 3, 1, 50.00, '2025-03-30');
+(2, 3, 1, 550.00, '2025-03-30'),
+(3, 4, 8, 600.00, '2025-04-13'),
+(4, 5, 8, 750.00, '2025-04-13'),
+(5, 9, 10, 700.00, '2025-04-22'),
+(6, 10, 10, 800.00, '2025-04-22'),
+(7, 11, 10, 1000.00, '2025-04-22');
 
 -- --------------------------------------------------------
 
@@ -3264,8 +4319,8 @@ CREATE TABLE `clinic_main_faq` (
 --
 
 INSERT INTO `clinic_main_faq` (`faq_id`, `faq_title`, `faq_answer`, `created_date`) VALUES
-(1, 'Feugiat scelerisque varius morbi enim nunc faucibu', 'Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id\r\n                                        interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus\r\n                                        scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim.\r\n                                        Mauris ultrices eros in cursus turpis massa tincidunt dui.', '2025-03-16'),
-(2, 'Feugiat scelerisque varius morbi enim nunc faucibu', 'Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id\r\n                                        interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus\r\n                                        scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim.\r\n                                        Mauris ultrices eros in cursus turpis massa tincidunt dui.', '2025-03-16');
+(1, 'Why does my pediatric clinic need a website?', 'Having a website helps your clinic establish trust with parents looking for reliable healthcare providers. It makes your clinic easier to find online, provides important information like clinic hours and contact details, and offers a convenient way for patients to get in touch or book appointments.', '2025-03-16'),
+(2, 'How can a website help my pediatric clinic grow?', 'A website can attract new families by improving your clinic’s online visibility and making it easier for parents to learn about your services. It also strengthens your clinic’s credibility and allows you to communicate updates, promotions, or health tips to your patients more effectively.\n\n', '2025-03-16');
 
 -- --------------------------------------------------------
 
@@ -3519,13 +4574,13 @@ ALTER TABLE `clinic_account_order_item`
 -- AUTO_INCREMENT for table `clinic_account_owner_history`
 --
 ALTER TABLE `clinic_account_owner_history`
-  MODIFY `actid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1531;
+  MODIFY `actid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2268;
 
 --
 -- AUTO_INCREMENT for table `clinic_account_patient_history`
 --
 ALTER TABLE `clinic_account_patient_history`
-  MODIFY `actid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
+  MODIFY `actid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=301;
 
 --
 -- AUTO_INCREMENT for table `clinic_account_payment`
@@ -3543,19 +4598,19 @@ ALTER TABLE `clinic_account_product`
 -- AUTO_INCREMENT for table `clinic_account_staff_history`
 --
 ALTER TABLE `clinic_account_staff_history`
-  MODIFY `actid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=457;
+  MODIFY `actid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=639;
 
 --
 -- AUTO_INCREMENT for table `clinic_account_theme_header`
 --
 ALTER TABLE `clinic_account_theme_header`
-  MODIFY `tid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `tid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `clinic_account_theme_sidebar`
 --
 ALTER TABLE `clinic_account_theme_sidebar`
-  MODIFY `stid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `stid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `clinic_account_type`
@@ -3573,61 +4628,61 @@ ALTER TABLE `clinic_admin`
 -- AUTO_INCREMENT for table `clinic_business_account`
 --
 ALTER TABLE `clinic_business_account`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_account_announcement`
 --
 ALTER TABLE `clinic_business_account_announcement`
-  MODIFY `announcement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `announcement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_account_appointment`
 --
 ALTER TABLE `clinic_business_account_appointment`
-  MODIFY `aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_account_appointment_follow_up`
 --
 ALTER TABLE `clinic_business_account_appointment_follow_up`
-  MODIFY `fid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `fid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_account_inquiry`
 --
 ALTER TABLE `clinic_business_account_inquiry`
-  MODIFY `bid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `bid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_account_patient`
 --
 ALTER TABLE `clinic_business_account_patient`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_account_paymentintegration`
 --
 ALTER TABLE `clinic_business_account_paymentintegration`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_account_subscription`
 --
 ALTER TABLE `clinic_business_account_subscription`
-  MODIFY `subs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `subs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_appointment_feedback`
 --
 ALTER TABLE `clinic_business_appointment_feedback`
-  MODIFY `feedid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `feedid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_assigned_doctor_appointment`
 --
 ALTER TABLE `clinic_business_assigned_doctor_appointment`
-  MODIFY `docapt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `docapt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_main_paymongo_configuration`
@@ -3639,49 +4694,49 @@ ALTER TABLE `clinic_business_main_paymongo_configuration`
 -- AUTO_INCREMENT for table `clinic_business_my_appointment_payment`
 --
 ALTER TABLE `clinic_business_my_appointment_payment`
-  MODIFY `payid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `payid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_roles`
 --
 ALTER TABLE `clinic_business_roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_service`
 --
 ALTER TABLE `clinic_business_service`
-  MODIFY `bsid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `bsid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_service_account`
 --
 ALTER TABLE `clinic_business_service_account`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_service_ticket`
 --
 ALTER TABLE `clinic_business_service_ticket`
-  MODIFY `ticketid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ticketid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_service_ticket_response`
 --
 ALTER TABLE `clinic_business_service_ticket_response`
-  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `clinic_bussiness_account_users`
 --
 ALTER TABLE `clinic_bussiness_account_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `clinic_bussiness_account_users_paygrade`
 --
 ALTER TABLE `clinic_bussiness_account_users_paygrade`
-  MODIFY `paygradeid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `paygradeid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `clinic_main_faq`
