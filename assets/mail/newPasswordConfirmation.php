@@ -447,7 +447,7 @@
         $mail->Port = 587;
     
         // Sender & Recipient
-        $mail->setFrom('familyvilleofficial@gmail.com', 'famville'); // Your email
+        $mail->setFrom('familyvilleofficial@gmail.com', 'OCS'); // Your email
         
         //Recipients
         $mail->addAddress($email);              

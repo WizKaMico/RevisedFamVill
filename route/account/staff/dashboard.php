@@ -43,9 +43,23 @@
                                     echo 
                                     "<tr>
                                         <td>".$accounts['patient']."</td>   
-                                        <td>".$accounts['dob']."</td>
-                                        <td>".$accounts['age']."</td>
-                                        <td>".$accounts['gender']."</td>
+                                        <td>".$accounts['dob']."</td>";
+                                         if ($accounts['age'] > 0) {
+                                            echo "<td>" . $accounts['age'] . " y/o</td>";
+                                        } else {
+                                            $dob = new DateTime($accounts['dob']);
+                                            $today = new DateTime();
+                                            $interval = $dob->diff($today);
+                                        
+                                            if ($interval->m == 0 && $interval->y == 0) {
+                                                echo "<td>" . $interval->d . " day(s) old</td>";
+                                            } elseif ($interval->y == 0) {
+                                                echo "<td>" . $interval->m . " month(s) old</td>";
+                                            } else {
+                                                echo "<td>0</td>"; // fallback
+                                            }
+                                        }
+                                        echo "<td>".$accounts['gender']."</td>
                                         <td>".$accounts['schedule_date']."</td>
                                         <td>".$accounts['status']."</td>
                                         <td>".$accounts['purpose']."</td>
@@ -73,7 +87,7 @@
             <div class="table-responsive p-2">
             <div class="col-md-12 p-0">
                 <iframe 
-                src="../../api/calendar.php?account_id=1" 
+                src="../../api/calendar.php?account_id=<?php echo $account_id;?>" 
                 style="width: 100%; height: 550px; border: none; overflow: hidden;"
                 scrolling="no"
                 ></iframe>
@@ -111,9 +125,23 @@
                                     echo 
                                     "<tr>
                                         <td>".$accounts['fid']."</td>   
-                                        <td>".$accounts['fullname']."</td>
-                                        <td>".$accounts['age']."</td>
-                                        <td>".$accounts['gender']."</td>
+                                        <td>".$accounts['fullname']."</td>";
+                                         if ($accounts['age'] > 0) {
+                                            echo "<td>" . $accounts['age'] . " y/o</td>";
+                                        } else {
+                                            $dob = new DateTime($accounts['dob']);
+                                            $today = new DateTime();
+                                            $interval = $dob->diff($today);
+                                        
+                                            if ($interval->m == 0 && $interval->y == 0) {
+                                                echo "<td>" . $interval->d . " day(s) old</td>";
+                                            } elseif ($interval->y == 0) {
+                                                echo "<td>" . $interval->m . " month(s) old</td>";
+                                            } else {
+                                                echo "<td>0</td>"; // fallback
+                                            }
+                                        }
+                                        echo "<td>".$accounts['gender']."</td>
                                         <td>".$accounts['followupdate']."</td>
                                         <td>".$accounts['status']."</td>
                                         <td>".$accounts['diagnosis']."</td>

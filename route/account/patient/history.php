@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="main-card mb-3 card">
-            <div class="card-header">History Appointments</div>
+            <div class="card-header">All Appointments</div>
             <div class="table-responsive">
                 <div class="col-md-12 mt-2">
                     <table id="upcomingTable"

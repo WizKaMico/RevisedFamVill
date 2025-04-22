@@ -286,6 +286,9 @@ if(!empty($_GET['action']))
                                         $_SESSION['account_id'] = $accountResult[0]["account_id"];
                                         Header('Location:./account/admin/?view=HOME');
                                         break;
+                                    default: 
+                                        Header('Location:?view=LOGIN&message=failed');
+                                        break;
                                 }
                             }
                             else
@@ -300,13 +303,19 @@ if(!empty($_GET['action']))
                             exit; 
                         }
                     }
+                }
+                else {
+                    Header('Location:?view=LOGIN&message=failed');  
+                    exit; 
                 }   
             break;
             case "ADMINLOGIN":
                 if(isset($_POST['submit']))
                 {
-                    $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
-                    $password = md5(filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING));
+                    // $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
+                    // $password = md5(filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING));
+                    $email = $_POST['email'];
+                    $password = md5($_POST['password']);
                     if(!empty($email) && !empty($password))
                     {
                         try

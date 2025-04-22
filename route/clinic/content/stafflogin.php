@@ -15,10 +15,12 @@
                                         required="">
                                 </div>
 
-                                <div class="col-md-12 ">
-                                    <input type="password" class="form-control" name="password" placeholder="Password"
-                                        required="">
-                                </div>
+                                <div class="col-md-12 position-relative">
+    <input type="password" id="password" class="form-control" name="password" placeholder="Password" required="">
+    <button type="button" class="btn btn-sm btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2" onclick="togglePassword()">
+        👁️
+    </button>
+</div>
 
                                 <div class="col-md-12 text-center">
                                     <input type="submit" type="submit" name="submit" value="Login"
@@ -35,3 +37,11 @@
             </div>
 
         </section><!-- /Contact Section -->
+
+        <script>
+function togglePassword() {
+    const passwordInput = document.getElementById("password");
+    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+    passwordInput.setAttribute("type", type);
+}
+</script>

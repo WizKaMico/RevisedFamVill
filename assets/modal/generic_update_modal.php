@@ -1199,9 +1199,11 @@
                             <div class="col-sm-12">
                                 <select class="form-control" name="level" required="">
                                     <option value="<?php echo $accounts['level']; ?>">Priority <?php echo $accounts['level']; ?> (CURRENT)</option>
-                                    <option value="1">High</option>  
-                                    <option value="2">Medium</option>    
-                                    <option value="3">Low</option>       
+                                    <option value="1">1</option>  
+                                    <option value="2">2</option>    
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>       
                                 </select>
                             </div>
                         </div>

@@ -6,6 +6,7 @@ $specificAccount = $portCont->myClinicSpecificAccountInfo($account_id,$client_id
     <div class="col-md-8">
         <div class="main-card mb-3 card">
             <div class="card-header">APPOINTMENT HISTORY OF <?php echo strtoupper($specificAccount[0]['fullname']); ?></div>
+            <a href="?view=PATIENT" class="btn btn-primary" style="width:5%; margin-left:10px;"> BACK</a>
             <div class="table-responsive">
                 <div class="col-md-12 mt-2">
                 <table id="activityScheduling" class="align-middle mb-0 table table-borderless table-striped table-hover">
@@ -33,6 +34,8 @@ $specificAccount = $portCont->myClinicSpecificAccountInfo($account_id,$client_id
                                         if ($accounts['age'] > 0) {
                                             echo "<td>" . $accounts['age'] . " y/o</td>";
                                         } else {
+                                            if(!empty($accounts['dob']))
+                                            {
                                             $dob = new DateTime($accounts['dob']);
                                             $today = new DateTime();
                                             $interval = $dob->diff($today);
@@ -44,6 +47,7 @@ $specificAccount = $portCont->myClinicSpecificAccountInfo($account_id,$client_id
                                             } else {
                                                 echo "<td>0</td>"; // fallback
                                             }
+                                        }
                                         }
                                         
                                     echo 

@@ -7,6 +7,7 @@ $specificAccount = $portCont->myClinicSpecificAccountInfo($account_id,$client_id
     <div class="col-md-12">
         <div class="main-card mb-3 card">
             <div class="card-header">APPOINTMENT HISTORY OF <?php echo strtoupper($specificAccount[0]['fullname']); ?></div>
+            <a href="?view=HISTORY" class="btn btn-primary" style="width:5%; margin-left:10px;"> BACK</a>
             <div class="table-responsive">
                 <div class="col-md-12 mt-2">
                 <hr/>    

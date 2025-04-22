@@ -136,7 +136,7 @@
                                 <label class="control-label modal-label">Phone:</label>
                             </div>
                             <div class="col-sm-12">
-                                <input type="text" name="phone" class="form-control" required="">
+                                <input type="text" name="phone" maxlength="11" pattern="^09\d{9}$" class="form-control" required="">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -260,7 +260,7 @@
                                 <label class="control-label modal-label">Phone:</label>
                             </div>
                             <div class="col-sm-12">
-                                <input type="text" name="phone" class="form-control" required="">
+                                <input type="text" maxlength="11" pattern="^09\d{9}$" name="phone" class="form-control" required="">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -551,9 +551,11 @@
                             </div>
                             <div class="col-sm-12">
                                 <select class="form-control" name="level" required="">
-                                    <option value="1">High</option>  
-                                    <option value="2">Medium</option>    
-                                    <option value="3">Low</option>    
+                                    <option value="1">1</option>  
+                                    <option value="2">2</option>    
+                                    <option value="3">3</option>
+                                    <option value="3">4</option>   
+                                    <option value="3">5</option>       
                                 </select>
                             </div>
                         </div>

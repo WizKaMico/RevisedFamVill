@@ -26,7 +26,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="main-card mb-3 card">
-            <div class="card-header">Upcoming Appointments</div>
+            <div class="card-header">Today's Appointments</div>
             <div class="table-responsive">
                 <div class="col-md-12 mt-2">
                     <table id="upcomingTable"
@@ -59,9 +59,23 @@
                                         "<tr>
                                             <td>".$accounts['aid']."</td>
                                             <td>".$accounts['pid']."</td>
-                                            <td>".$accounts['fullname']."</td>
-                                            <td>".$accounts['age']."</td>
-                                            <td>".$accounts['gender']."</td>
+                                            <td>".$accounts['fullname']."</td>";
+                                            if ($accounts['age'] > 0) {
+                                            echo "<td>" . $accounts['age'] . " y/o</td>";
+                                        } else {
+                                            $dob = new DateTime($accounts['dob']);
+                                            $today = new DateTime();
+                                            $interval = $dob->diff($today);
+                                        
+                                            if ($interval->m == 0 && $interval->y == 0) {
+                                                echo "<td>" . $interval->d . " day(s) old</td>";
+                                            } elseif ($interval->y == 0) {
+                                                echo "<td>" . $interval->m . " month(s) old</td>";
+                                            } else {
+                                                echo "<td>0</td>"; // fallback
+                                            }
+                                        }
+                                            echo "<td>".$accounts['gender']."</td>
                                             <td>".$accounts['service']."</td>
                                             <td>".$accounts['purpose_description']."</td>
 

@@ -67,8 +67,17 @@
  </div>
 
  <script>
-    const today = new Date();
-    const currentYear = today.getFullYear();
-    const maxDate = `${currentYear}-12-31`
-    document.getElementById('dob').setAttribute('max', maxDate)
- </script>
+    const optionSelect = document.getElementById('optionSelect');
+    const dateToday = document.getElementById('dateToday');
+    const dateOther = document.getElementById('dateOther');
+
+    optionSelect.addEventListener('change', function () {
+        if (this.value === 'today') {
+            dateToday.style.display = 'block';
+            dateOther.style.display = 'none';
+        } else {
+            dateToday.style.display = 'none';
+            dateOther.style.display = 'block';
+        }
+    });
+</script>

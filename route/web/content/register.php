@@ -28,7 +28,8 @@
                                     <div class="row mb-3">
                                         <div class="col-md-12">
                                             <label for="phone" class="form-label d-block text-start"><b>Business Phone</b></label>
-                                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone" required>
+                                            <input type="text" class="form-control" name="phone" maxlength="11" pattern="^09\d{9}$" id="phone" placeholder="Phone" required>
+                                            
                                         </div>
                                     </div>
 

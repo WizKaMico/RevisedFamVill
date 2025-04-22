@@ -93,9 +93,10 @@ class userController extends DBController
 
      function myAccountBussiness()
      {
-        $query = "SELECT CBA.*,CBAS.account_type,CAT.account,SUM(CAT.amount) as PAY,CBAS.date_created FROM clinic_business_account CBA
-                    LEFT JOIN clinic_business_account_subscription CBAS ON CBA.account_id = CBAS.account_id
-                    LEFT JOIN clinic_account_type CAT ON CBAS.account_type = CAT.account_type";
+        $query = "SELECT CBA.*,CBAS.account_type,CBAS.date_created, CAT.account FROM clinic_business_account CBA
+                    LEFT JOIN clinic_business_account_subscription CBAS ON CBA.account_id = CBAS.account_id 
+                    LEFT JOIN clinic_account_type CAT ON CAT.account_type = CBAS.account_type
+                    WHERE CBA.status = 'SUBSCRIBED' GROUP BY CBA.account_id;";
         $account = $this->getDBResult($query);
         return $account;
      }

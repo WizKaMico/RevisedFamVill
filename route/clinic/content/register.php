@@ -63,8 +63,10 @@ window.onload = function() {
                                    </div>
 
                                    <div class="col-md-12 ">
-                                       <input type="number" class="form-control" name="phone" placeholder="Contact"
-                                           required="">
+                                        <!--<input type="number" class="form-control" name="phone" maxlength="11" pattern="^09\d{9}$" placeholder="Contact"
+                                           required=""> -->
+                                           <input type="number" class="form-control" name="phone" placeholder="Contact"    required   min="0"
+       oninput="this.value = this.value.slice(0, 11)">
                                    </div>
 
                                    <div class="col-md-12 text-center">
