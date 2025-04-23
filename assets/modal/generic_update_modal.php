@@ -694,6 +694,11 @@
                     <form method="POST" action="?view=SPECIFICACCOUNTBOOK&action=APPOINTMENTSTATUSUPDATE">
                     <input type="hidden" name="client_id" value="<?php echo $_GET['client_id']; ?>" class="form-control" required="">
                     <input type="hidden" name="aid" value="<?php echo $accounts['aid']; ?>" class="form-control" required="">
+                    
+                    <input type="hidden" name="guardian" value="<?php echo $specificAccount[0]['fullname']; ?>" class="form-control" required="">
+                    <input type="hidden" name="email" value="<?php echo $specificAccount[0]['email']; ?>" class="form-control" required="">
+                    <input type="hidden" name="patient" value="<?php echo $accounts['patient']; ?>" class="form-control" required="">
+                   
                     <select class="form-control" name="status" required="">
                       <option value="<?php echo $accounts['status']; ?> "><?php echo $accounts['status']; ?> (CURRENT)</option>
                       <option value="BOOKED">BOOKED</option>
@@ -834,7 +839,14 @@
                             <label class="control-label modal-label">Reschedule Date :</label>
                         </div>
                         <div class="col-sm-12">
-                           <input type="date" name="schedule_date" id="schedule_date" class="form-control"/>
+                            <?php
+                                $scheduledDate = $accounts['schedule_date'];
+                                $minDate = date('Y-m-d', strtotime($scheduledDate . ' +1 day'));
+                            ?>
+                            <input type="hidden" name="email" value="<?php echo $accounts['email']; ?>" class="form-control" readonly="" required=""/>
+                            <input type="hidden" name="patient" value="<?php echo $accounts['patient']; ?>" class="form-control" readonly="" required=""/>
+                            <input type="hidden" name="guardian" value="<?php echo $accounts['guardian']; ?>" class="form-control" readonly="" required=""/>
+                           <input type="date" name="schedule_date" value="<?php echo $accounts['schedule_date']; ?>" min="<?php echo $minDate; ?>" id="schedule_date" class="form-control"/>
                         </div>
                      </div>
                 </div>

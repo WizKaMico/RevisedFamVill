@@ -16,11 +16,11 @@
                                 </div>
 
                                 <div class="col-md-12 position-relative">
-    <input type="password" id="password" class="form-control" name="password" placeholder="Password" required="">
-    <button type="button" class="btn btn-sm btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2" onclick="togglePassword()">
-        👁️
-    </button>
-</div>
+                                    <input type="password" id="password" class="form-control" name="password" placeholder="Password" required="">
+                                    <button type="button" class="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2" onclick="togglePassword()">
+                                        👁️
+                                    </button>
+                                </div>
 
 
                                 <div class="col-md-12 text-center">
@@ -43,9 +43,9 @@
         </section><!-- /Contact Section -->
 
         <script>
-function togglePassword() {
-    const passwordInput = document.getElementById("password");
-    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-    passwordInput.setAttribute("type", type);
-}
-</script>
+        function togglePassword() {
+            const passwordInput = document.getElementById("password");
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+        }
+        </script>

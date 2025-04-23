@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2025 at 09:51 PM
+-- Generation Time: Apr 23, 2025 at 05:25 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -3622,7 +3622,51 @@ INSERT INTO `clinic_account_staff_history` (`actid`, `account_id`, `user_id`, `p
 (635, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
 (636, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
 (637, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
-(638, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-23');
+(638, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(639, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(640, 1, 2, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(641, 1, 2, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(642, 1, 2, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(643, 1, 2, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(644, 1, 2, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(645, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(646, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(647, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(648, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(649, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(650, 1, 3, 'HOME', 'Navigate to HOME', '2025-04-23'),
+(651, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(652, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(653, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(654, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(655, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(656, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(657, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(658, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(659, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(660, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(661, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(662, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(663, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(664, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(665, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(666, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(667, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(668, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(669, 1, 3, 'SPECIFICACCOUNTBOOKVIEW', 'Navigate to SPECIFICACCOUNTBOOKVIEW', '2025-04-23'),
+(670, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(671, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(672, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(673, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(674, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(675, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(676, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(677, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(678, 1, 3, 'PATIENT', 'Navigate to PATIENT', '2025-04-23'),
+(679, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(680, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(681, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23'),
+(682, 1, 3, 'SPECIFICACCOUNTBOOK', 'Navigate to SPECIFICACCOUNTBOOK', '2025-04-23');
 
 -- --------------------------------------------------------
 
@@ -3828,8 +3872,8 @@ INSERT INTO `clinic_business_account_appointment` (`aid`, `account_id`, `pid`, `
 (27, 10, '250422-97028', 10, '2025-03-31', 0, 'nora', '8 ', 'test', 'MALE', '2025-04-22', 'PAYED CONFIRM', 'WEB', '2025-04-22'),
 (28, 10, '250422-91534', 11, '2025-03-31', 0, 'arrib daughter', '8 ', 'test', 'FEMALE', '2025-04-22', 'PAYED PENDING', 'WEB', '2025-04-22'),
 (29, 1, '250422-79707', 9, '2025-03-31', 0, 'son', '2 ', 'test', 'MALE', '2025-04-22', 'PAYED CONFIRM', 'WEB', '2025-04-22'),
-(30, 1, '250422-85485', 5, '2025-04-06', 0, 'aron1son', '2 ', 'test', 'MALE', '2025-04-23', 'CONFIRMED', 'WEB', '2025-04-22'),
-(31, 1, '250422-68443', 5, '2025-04-06', 0, 'aron1son', '2 ', 'test', 'MALE', '2025-04-23', 'BOOKED', 'WEB', '2025-04-22');
+(30, 1, '250422-85485', 5, '2025-04-06', 0, 'aron1son', '2 ', 'test', 'MALE', '2025-04-23', 'CANCELLED', 'WEB', '2025-04-22'),
+(31, 1, '250422-68443', 5, '2025-04-06', 0, 'aron1son', '2 ', 'test', 'MALE', '2025-04-26', 'BOOKED', 'WEB', '2025-04-22');
 
 -- --------------------------------------------------------
 
@@ -3855,7 +3899,9 @@ CREATE TABLE `clinic_business_account_appointment_follow_up` (
 INSERT INTO `clinic_business_account_appointment_follow_up` (`fid`, `aid`, `account_id`, `doctor_id`, `schedule_date`, `diagnosis`, `status`, `date_created`) VALUES
 (1, 6, 1, 2, '2025-03-30', 'jUST KIDDING', 'CONFIRMED', '2025-03-29'),
 (2, 6, 1, 2, '2025-08-28', 'really kidding', 'CANCELLED', '2025-03-30'),
-(3, 24, 8, 4, '2025-04-22', NULL, 'BOOKED', '2025-04-13');
+(3, 24, 8, 4, '2025-04-22', NULL, 'BOOKED', '2025-04-13'),
+(4, 13, 1, 3, '2025-04-24', NULL, 'BOOKED', '2025-04-23'),
+(5, 30, 1, 3, '2025-04-25', NULL, 'BOOKED', '2025-04-23');
 
 -- --------------------------------------------------------
 
@@ -3907,7 +3953,7 @@ CREATE TABLE `clinic_business_account_patient` (
 
 INSERT INTO `clinic_business_account_patient` (`client_id`, `account_id`, `fullname`, `username`, `email`, `phone`, `password`, `unhashed`, `status`, `code`, `date_created`) VALUES
 (1, 1, 'Jerwin Tagulao', 'Jerwin012', 'jerwin@outlook.com', '09531599179', '098f6bcd4621d373cade4e832627b4f6', 'test', 'VERIFIED', 859679, '2025-03-18'),
-(5, 1, 'Arron Test', 'Aron1', 'test@gmail.com', '0916653178', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'VERIFIED', 998393, '2025-03-30'),
+(5, 1, 'Arron Test', 'Aron1', 'gmfacistol@outlook.com', '0916653178', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'VERIFIED', 998393, '2025-03-30'),
 (6, 8, 'Jhay Arron', 'jhay', 'jhay@gmail.com', '09897682312', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'VERIFIED', 846751, '2025-04-13'),
 (7, 8, 'joshua', 'jjosh', 'josh@gmail.com', '092387562389746127846128', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'UNVERIFIED', 928772, '2025-04-15'),
 (8, 1, 'err', 'err', 'err@gmail.com', '09128974612398763875632', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'VERIFIED', 688125, '2025-04-15'),
@@ -4598,7 +4644,7 @@ ALTER TABLE `clinic_account_product`
 -- AUTO_INCREMENT for table `clinic_account_staff_history`
 --
 ALTER TABLE `clinic_account_staff_history`
-  MODIFY `actid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=639;
+  MODIFY `actid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=683;
 
 --
 -- AUTO_INCREMENT for table `clinic_account_theme_header`
@@ -4646,7 +4692,7 @@ ALTER TABLE `clinic_business_account_appointment`
 -- AUTO_INCREMENT for table `clinic_business_account_appointment_follow_up`
 --
 ALTER TABLE `clinic_business_account_appointment_follow_up`
-  MODIFY `fid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `fid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_account_inquiry`
@@ -4658,7 +4704,7 @@ ALTER TABLE `clinic_business_account_inquiry`
 -- AUTO_INCREMENT for table `clinic_business_account_patient`
 --
 ALTER TABLE `clinic_business_account_patient`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `clinic_business_account_paymentintegration`

@@ -507,6 +507,9 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <form method="POST" action="?view=SPECIFICACCOUNTBOOKVIEW&action=ADDFOLLOWUP">
+                    <input type="hidden" name="email" value="<?php echo $specificAccount[0]['email']; ?>" class="form-control" readonly="" required=""/>
+                    <input type="hidden" name="guardian" value="<?php echo $specificAccount[0]['fullname']; ?>" class="form-control" readonly="" required=""/>
+
                     <input type="hidden" name="aid" class="form-control" value="<?php echo $_GET['aid']; ?>" required="" readonly="">
                     <input type="hidden" name="client_id" class="form-control" value="<?php echo $_GET['client_id']; ?>" required="" readonly="">
                     <input type="hidden" name="user_id" class="form-control" value="<?php echo $user_id; ?>" required="" readonly="">

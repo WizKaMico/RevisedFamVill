@@ -36,7 +36,7 @@ if(!empty($_GET['action']))
                     $userEmail = $result[0]["email"];
                     if(!empty($userCode) && !empty($userEmail))
                     {
-                        // require("./connection/mail/verification.php");
+                        require("../assets/mail/patientverification.php");
                         header('Location:?company='.$account[0]['business_name'].'&view=VERIFICATION&email='.$userEmail.'&message=success');
                     }
                 }

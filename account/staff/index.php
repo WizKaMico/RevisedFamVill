@@ -3,6 +3,7 @@ include('../../connection/business_ownerStaffSession.php');
 include('../../controller/userController.php'); 
 $account = $portCont->myAccountStaff($user_id);
 $account_id = $account[0]['account_id'];
+$business_name = $account[0]['business_name'];
 $accountHeader = $portCont->checkTheme($account_id);
 $accountSidebar = $portCont->checkSideBarTheme($account_id);
 $notice = $portCont->myAccountAnnouncementDisplay($account_id);
@@ -20,14 +21,28 @@ if(!empty($_GET['action']))
             $client_id = filter_input(INPUT_POST, "client_id", FILTER_SANITIZE_STRING);
             $aid = filter_input(INPUT_POST, "aid", FILTER_SANITIZE_STRING);
             $status = filter_input(INPUT_POST, "status", FILTER_SANITIZE_STRING);
+
+            $guardian  = filter_input(INPUT_POST, "guardian", FILTER_SANITIZE_STRING);
+            $email  = filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
+            $patient  = filter_input(INPUT_POST, "patient", FILTER_SANITIZE_STRING);
             if(!empty($account_id) && !empty($client_id) && !empty($aid) && !empty($status))
             {
                 try
                 {
-                    $portCont->myAppointmentBookingStatusUpdate($account_id, $client_id, $aid, $status);
-                    // $portCont->updateBookingStatusAfterPayment($aid);
-                    header('Location:?view=SPECIFICACCOUNTBOOK&client_id=' . $client_id . '&message=success');
-                    exit;
+                    if($status == "CANCELLED")
+                    {
+                        $portCont->myAppointmentBookingStatusUpdate($account_id, $client_id, $aid, $status);
+                        require("../../assets/mail/patientCancel.php");
+                        header('Location:?view=SPECIFICACCOUNTBOOK&client_id=' . $client_id . '&message=success');
+                        exit;
+                    }
+                    else
+                    {
+                        $portCont->myAppointmentBookingStatusUpdate($account_id, $client_id, $aid, $status);
+                        // $portCont->updateBookingStatusAfterPayment($aid);
+                        header('Location:?view=SPECIFICACCOUNTBOOK&client_id=' . $client_id . '&message=success');
+                        exit;
+                    }
                 }
                 catch(Exception $e)
                 {
@@ -195,11 +210,15 @@ if(!empty($_GET['action']))
                 $account_id = $account[0]['account_id'];   
                 $aid = filter_input(INPUT_POST, "aid", FILTER_SANITIZE_STRING);
                 $schedule_date = filter_input(INPUT_POST, "schedule_date", FILTER_SANITIZE_STRING); 
-                if(!empty($account_id) && !empty($aid) && !empty($schedule_date))
+                $email  = filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
+                $patient  = filter_input(INPUT_POST, "patient", FILTER_SANITIZE_STRING);
+                $guardian  = filter_input(INPUT_POST, "guardian", FILTER_SANITIZE_STRING);
+                if(!empty($account_id) && !empty($aid) && !empty($schedule_date) && !empty($email) && !empty($patient) && !empty($guardian))
                 {
                     try
                     {
                         $portCont->updateMyPatientAppointment($account_id,$aid,$schedule_date);
+                        include('../../assets/mail/patientReschedule.php');
                         header('Location: ?view=HOME&message=success');
                         exit;
                         
@@ -224,11 +243,15 @@ if(!empty($_GET['action']))
                 $doctor_id = filter_input(INPUT_POST, "user_id", FILTER_SANITIZE_STRING);
                 $schedule_date = filter_input(INPUT_POST, "schedule_date", FILTER_SANITIZE_STRING); 
                 $client_id = filter_input(INPUT_POST, "client_id", FILTER_SANITIZE_STRING); 
+
+                $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING); 
+                $guardian = filter_input(INPUT_POST, "guardian", FILTER_SANITIZE_STRING); 
                 if(!empty($account_id) && !empty($aid) && !empty($doctor_id) && !empty($schedule_date) && !empty($client_id))
                 {
                     try
                     {
                         $portCont->addFollowUpSchedule($aid,$account_id,$doctor_id,$schedule_date);
+                        include('../../assets/mail/patientFollowup.php');
                         header('Location: ?view=SPECIFICACCOUNTBOOKVIEW&aid='.$aid.'&client_id='.$client_id.'message=success');
                         exit;
                         
