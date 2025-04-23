@@ -376,7 +376,7 @@
                             -->
                             <p>Welcome '.$email.',</p>
                             <p>We sent you a verification code to keep your account secure. Please enter the code below to continue!</p><br>
-                            <p><h3 style="text-align:center;"><b>6-DIGIT CODE : '.$code.'</b></h3></p>
+                            <p><h3 style="text-align:center;"><b>6-DIGIT CODE : '.$userCode.'</b></h3></p>
                           </td>
                         </tr>
                       </table>
