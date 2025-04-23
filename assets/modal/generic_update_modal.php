@@ -863,6 +863,50 @@
     </div>
 </div>
 
+
+<div class="modal fade mt-5" id="editAppointment1_<?php echo $accounts['aid']; ?>" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Reschedule Appointment Patient</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form method="POST" action="?view=HOME&action=UPDATEAPPOINTMENTSCHEDULE">
+                    <input type="hidden" name="aid" value="<?php echo $accounts['aid']; ?>" class="form-control" required="">
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label class="control-label modal-label">Reschedule Date :</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <?php
+                                $scheduledDate = $accounts['schedule_date'];
+                                $minDate = date('Y-m-d', strtotime($scheduledDate . ' +1 day'));
+                            ?>
+                            <input type="hidden" name="email" value="<?php echo $account[0]['email']; ?>" class="form-control" readonly="" required=""/>
+                            <input type="hidden" name="patient" value="<?php echo $accounts['fullname']; ?>" class="form-control" readonly="" required=""/>
+                            <input type="hidden" name="guardian" value="<?php echo $account[0]['fullname']; ?>" class="form-control" readonly="" required=""/>
+                           <input type="date" name="schedule_date" value="<?php echo $accounts['schedule_date']; ?>" min="<?php echo $minDate; ?>" id="schedule_date" class="form-control"/>
+                        </div>
+                     </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span
+                        class="glyphicon glyphicon-remove"></span> Cancel</button>
+                <button type="submit" name="submit" class="btn btn-success"><span
+                        class="glyphicon glyphicon-check"></span> Update</a>
+                    </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
 <div class="modal fade mt-5" id="informationAppointment_<?php echo $accounts['aid']; ?>" tabindex="-1" role="dialog"
     aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

@@ -94,14 +94,14 @@
                                                 include('../../assets/payment/GpayPatient.php'); 
                                                 echo "
                                                     <a href='#payBILLINGAppointmentChargePatient_".$accounts['aid']."' class='btn btn-primary btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-money'></i></span></a>
-                                                    <a href='#editAppointment_".$accounts['aid']."' class='btn btn-success btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-calendar'></i></span></a>
+                                                    <a href='#editAppointment1_".$accounts['aid']."' class='btn btn-success btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-calendar'></i></span></a>
                                                     <a href='#informationAppointment_".$accounts['aid']."' class='btn btn-warning btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-user'></i></span></a>
                                                     <a href='#cancelBookingPatientAppointment_".$accounts['aid']."' class='btn btn-danger btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-close'></i></span></a>";
                                               }
                                               else
                                               {
                                                 echo "
-                                                <a href='#editAppointment_".$accounts['aid']."' class='btn btn-success btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-calendar'></i></span></a>
+                                                <a href='#editAppointment1_".$accounts['aid']."' class='btn btn-success btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-calendar'></i></span></a>
                                                 <a href='#informationAppointment_".$accounts['aid']."' class='btn btn-warning btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-user'></i></span></a>
                                                 <a href='#cancelBookingPatientAppointment_".$accounts['aid']."' class='btn btn-danger btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-close'></i></span></a>";
                                               }
@@ -109,7 +109,7 @@
                                             else
                                             {
                                                 echo "
-                                                <a href='#editAppointment_".$accounts['aid']."' class='btn btn-success btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-calendar'></i></span></a>
+                                                <a href='#editAppointment1_".$accounts['aid']."' class='btn btn-success btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-calendar'></i></span></a>
                                                 <a href='#informationAppointment_".$accounts['aid']."' class='btn btn-warning btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-user'></i></span></a>
                                                 <a href='#cancelBookingPatientAppointment_".$accounts['aid']."' class='btn btn-danger btn-sm' data-toggle='modal' data-backdrop='false'> <i class='fa fa-close'></i></span></a>";
                                             }

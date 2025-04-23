@@ -116,11 +116,16 @@ if(!empty($_GET['action']))
                 $account_id = $account[0]['account_id'];   
                 $aid = filter_input(INPUT_POST, "aid", FILTER_SANITIZE_STRING);
                 $schedule_date = filter_input(INPUT_POST, "schedule_date", FILTER_SANITIZE_STRING); 
+
+                $email  = filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
+                $patient  = filter_input(INPUT_POST, "patient", FILTER_SANITIZE_STRING);
+                $guardian  = filter_input(INPUT_POST, "guardian", FILTER_SANITIZE_STRING);
                 if(!empty($account_id) && !empty($aid) && !empty($schedule_date))
                 {
                     try
                     {
                         $portCont->updateMyPatientAppointment($account_id,$aid,$schedule_date);
+                        include('../../assets/mail/patientReschedule.php');
                         header('Location: ?view=HOME&message=success');
                         exit;
                         
