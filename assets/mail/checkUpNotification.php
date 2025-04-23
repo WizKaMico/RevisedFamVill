@@ -375,7 +375,7 @@
                             // <br>
                             -->
                             <p>Hi '.$email.',</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique rerum molestiae voluptate quam repellendus. Tempora amet soluta cumque possimus quam saepe corrupti? Nulla laboriosam esse quae animi reprehenderit, quaerat beatae!</p><br>
+                            <p>Please be reminded that this is your scheduled appointment date with us!</p><br>
                             <p><h3 style="text-align:center;"><b>'.$activity.'</b></h3></p>
                           </td>
                         </tr>
